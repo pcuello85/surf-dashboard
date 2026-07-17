@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Quiver">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E">
-<title>Quiver Selector — Bolso Nicaragua · Pablo Cuello</title>
+<title>Quiver Selector — Bolso Nicaragua</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -57,7 +57,7 @@
   <!-- Header -->
   <div class="text-white mb-6">
     <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector — Bolso Nicaragua</h1>
-    <p class="text-cyan-100 mt-1">Pablo Cuello · 3 tablas (escenario 220 lb) · 99.8 kg / 220 lb</p>
+    <p class="text-cyan-100 mt-1">3 tablas · Bolso base Nicaragua · Forecast en vivo 7 días</p>
   </div>
 
   <!-- Inputs -->
@@ -148,14 +148,14 @@
   <!-- Recommendations -->
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
     <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 Ranking del bolso</h2>
-    <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100. Solo las 3 tablas del bolso base Nicaragua (220–210 lb).</p>
+    <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100. Solo las 3 tablas del bolso base Nicaragua.</p>
     <div id="rankings" class="space-y-3"></div>
   </div>
 
   <!-- Footer -->
   <div class="text-center text-cyan-100 text-xs mt-8">
-    <p>Bolso Nicaragua · Master de tablas v9 · Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
-    <p class="mt-1">Peso configurado: 220 lb (99.8 kg) · Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
+    <p>Bolso Nicaragua · Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
+    <p class="mt-1">Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
   </div>
 </div>
 
@@ -195,7 +195,7 @@ const SPOTS = {
 
 function currentTZ() { return COUNTRIES[state.country].tz; }
 
-// ============ QUIVER: BOLSO NICARAGUA (escenario 220 lb, Master v9) ============
+// ============ QUIVER: BOLSO NICARAGUA (escenario base, Master v9) ============
 const quiver = [
   {
     id: 1, name: "Ghost", brand: "Pyzel", role: "DÍA EN FORMA · Step-up, tamaño y tubo",
@@ -205,7 +205,7 @@ const quiver = [
     tags: ["stepup", "solid", "hollow", "reef-point"],
     note: "Step-up para olas buenas/fuertes/huecas. Reef/point/beach con tamaño. La tabla del día bueno.",
     finSets: {
-      thruster: { name: "Futures JJF Techflex Large", config: "Thruster", note: "Set oficial Pyzel para tu peso. Confirmado 2026-06-10." },
+      thruster: { name: "Futures JJF Techflex Large", config: "Thruster", note: "Set oficial Pyzel. Confirmado 2026-06-10." },
       quad:     { name: "Futures JJF Techflex L + trailers QD2 3.75\"/4.0\"", config: "Quad", note: "Para tubo — más hold y drive en olas huecas." }
     },
     defaultSetup: "thruster"
@@ -283,7 +283,7 @@ function recommendFinSetup(board, c) {
 function scoreBoard(board, c) {
   const power = c.height * c.height * c.period;
 
-  // Volumen ideal paramétrico al peso (ratios L/kg calibrados; a 99.8 kg ≈ 48/45/42/40/38 L)
+  // Volumen ideal paramétrico al peso (ratios L/kg calibrados)
   let idealVolume;
   if (power < 6) idealVolume = USER_WEIGHT * 0.485;
   else if (power < 12) idealVolume = USER_WEIGHT * 0.447;
@@ -621,7 +621,6 @@ function render() {
     const r = item.result;
     const badge = getRecommendationBadge(i, r.score);
     const reasons = buildReasoning(b, r, state);
-    const ratioVol = (b.volume / USER_WEIGHT).toFixed(2);
 
     const finRec = recommendFinSetup(b, state);
     const isTopPick = i === 0 && r.score >= 70;
@@ -636,7 +635,7 @@ function render() {
               ${badge ? `<span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badge.cls}">${badge.txt}</span>` : ''}
             </div>
             <p class="text-xs text-sky-700 font-semibold">${b.role}</p>
-            <p class="text-xs text-slate-500">${b.brand} · ${b.lengthLabel} · ${b.volume}L · Ratio ${ratioVol} L/kg · ${b.fins} cajas ${b.finSystem}</p>
+            <p class="text-xs text-slate-500">${b.brand} · ${b.lengthLabel} · ${b.volume}L · ${b.fins} cajas ${b.finSystem}</p>
           </div>
           <div class="text-right">
             <div class="text-2xl font-bold text-slate-800">${r.score.toFixed(0)}</div>
