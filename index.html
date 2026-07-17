@@ -41,12 +41,10 @@
   .score-bar { transition: width 0.5s ease; }
   .day-card { transition: all 0.2s ease; cursor: pointer; }
   .day-card:hover { transform: translateY(-2px); }
-  /* Móvil: strip de días con scroll horizontal, tarjetas de ancho fijo */
   @media (max-width: 767px) {
     #forecastStrip { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 4px; }
     #forecastStrip .day-card { min-width: 104px; flex-shrink: 0; scroll-snap-align: start; }
   }
-  /* Táctil: áreas de toque cómodas */
   .spot-btn, .country-btn { min-height: 44px; }
 </style>
 </head>
@@ -54,29 +52,24 @@
 
 <div class="max-w-6xl mx-auto">
 
-  <!-- Header -->
   <div class="text-white mb-6">
     <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector — Bolso Nicaragua</h1>
     <p class="text-cyan-100 mt-1">3 tablas · Bolso base Nicaragua · Forecast en vivo 7 días</p>
   </div>
 
-  <!-- Inputs -->
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
     <h2 class="text-xl font-bold text-slate-800 mb-4">Condiciones del día</h2>
 
-    <!-- Country selector -->
     <div class="mb-3">
       <label class="block text-sm font-semibold text-slate-700 mb-2">País</label>
       <div id="countryGrid" class="flex flex-wrap gap-2"></div>
     </div>
 
-    <!-- Spot selector -->
     <div class="mb-4">
       <label class="block text-sm font-semibold text-slate-700 mb-2">Spot</label>
       <div id="spotGrid" class="grid grid-cols-2 md:grid-cols-5 gap-2"></div>
     </div>
 
-    <!-- 7-day forecast strip -->
     <div class="mb-5 pt-4 border-t border-slate-200">
       <div class="flex items-center justify-between mb-2">
         <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">📅 Próximos 7 días — <span id="forecastSpotName"></span></p>
@@ -84,9 +77,9 @@
       </div>
       <div id="forecastStrip" class="grid md:grid-cols-7 gap-2"></div>
       <p class="text-[11px] text-slate-400 mt-2">Valores de la sesión de la mañana (7:00 AM). Clic en un día para cargarlo en los sliders. ⭐ = mejor día de la semana en este spot. Fuente: Open-Meteo (marine + wind), se actualiza solo cada vez que abres la página.</p>
+      <p id="extLinks" class="text-[11px] text-slate-500 mt-1"></p>
     </div>
 
-    <!-- Sliders -->
     <div class="grid md:grid-cols-2 gap-6">
       <div>
         <label class="block text-sm font-semibold text-slate-700 mb-1">
@@ -129,9 +122,18 @@
         </select>
       </div>
     </div>
+
+    <div class="mt-4 pt-4 border-t border-slate-200">
+      <label class="block text-sm font-semibold text-slate-700 mb-2">🐬 Configuración de quillas</label>
+      <div id="finModeGrid" class="flex flex-wrap gap-2">
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="auto">🤖 Auto (recomendado)</button>
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="thruster">Thruster (3)</button>
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="quad">Quad (4)</button>
+      </div>
+      <p id="finModeNote" class="text-xs text-slate-500 mt-2"></p>
+    </div>
   </div>
 
-  <!-- Power indicator -->
   <div id="powerIndicator" class="glass rounded-2xl p-4 mb-6 shadow-xl">
     <div class="flex items-center justify-between">
       <div>
@@ -145,14 +147,12 @@
     </div>
   </div>
 
-  <!-- Recommendations -->
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
     <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 Ranking del bolso</h2>
     <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100. Solo las 3 tablas del bolso base Nicaragua.</p>
     <div id="rankings" class="space-y-3"></div>
   </div>
 
-  <!-- Footer -->
   <div class="text-center text-cyan-100 text-xs mt-8">
     <p>Bolso Nicaragua · Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
     <p class="mt-1">Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
@@ -160,21 +160,15 @@
 </div>
 
 <script>
-// ============ CONFIG ============
 const USER_WEIGHT_LB = 220;
 const USER_WEIGHT = 99.8; // kg (220 lb)
 
-// PAÍSES: cada uno con su zona horaria (afecta la hora de la sesión 7:00 AM y la fecha "HOY")
 const COUNTRIES = {
   do: { label: "🇩🇴 Rep. Dominicana", tz: "America/Santo_Domingo" },
   ni: { label: "🇳🇮 Nicaragua",       tz: "America/Managua" }
 };
 
-// SPOTS: lat/lon para forecast + facing = dirección (grados) hacia la que mira la playa (hacia el mar).
-// Con facing se clasifica el viento en offshore/cross/onshore automáticamente.
-// >>> Verificar coordenadas de "pato" y "puntaparaiso": asumidas como Los Patos y Paraíso (Barahona). <<<
 const SPOTS = {
-  // — República Dominicana —
   pato:         { country: "do", label: "Pato Beach",    lat: 17.9585, lon: -71.1831, facing: 150, type: "beachbreak", quality: "short"  },
   encuentro:    { country: "do", label: "Encuentro",     lat: 19.7783, lon: -70.4544, facing: 10,  type: "reef",       quality: "long"   },
   macao:        { country: "do", label: "Macao",         lat: 18.7669, lon: -68.5486, facing: 55,  type: "beachbreak", quality: "medium" },
@@ -185,7 +179,6 @@ const SPOTS = {
   nagua:        { country: "do", label: "Nagua",         lat: 19.3960, lon: -69.8330, facing: 45,  type: "beachbreak", quality: "medium" },
   lapreciosa:   { country: "do", label: "La Preciosa",   lat: 19.6706, lon: -69.9106, facing: 5,   type: "reef",       quality: "long"   },
   bahoruco:     { country: "do", label: "Bahoruco",      lat: 18.0805, lon: -71.0937, facing: 110, type: "point",      quality: "long"   },
-  // — Nicaragua (Tola / Rivas, Pacífico SW; offshore = viento E del Lago de Nicaragua) —
   colorado:     { country: "ni", label: "Colorado",      lat: 11.4800, lon: -86.0780, facing: 235, type: "beachbreak", quality: "medium" },
   pangadrops:   { country: "ni", label: "Panga Drops",   lat: 11.4860, lon: -86.0800, facing: 240, type: "reef",       quality: "medium" },
   lancesleft:   { country: "ni", label: "Lance's Left",  lat: 11.4280, lon: -86.1130, facing: 230, type: "reef",       quality: "long"   },
@@ -193,15 +186,29 @@ const SPOTS = {
   popoyo:       { country: "ni", label: "Popoyo",        lat: 11.4487, lon: -86.1027, facing: 245, type: "reef",       quality: "long"   }
 };
 
+const SF_SLUGS = {
+  encuentro: "Playa-Encuentro", macao: "Macao", playagrande: "Playa-Grande",
+  popoyo: "Popoyo", colorado: "Playa-Colorado", pangadrops: "Panga-Drops",
+  lancesleft: "Lances-Left", playgrounds: "Playgrounds"
+};
+
+function externalLinks(spotKey) {
+  const s = SPOTS[spotKey];
+  const sfCountry = s.country === "do" ? "Dominican-Rep" : "Nicaragua";
+  const sf = SF_SLUGS[spotKey]
+    ? `https://www.surf-forecast.com/breaks/${SF_SLUGS[spotKey]}/forecasts/latest`
+    : `https://www.surf-forecast.com/countries/${sfCountry}/breaks`;
+  const sl = `https://www.surfline.com/search/${encodeURIComponent(s.label)}`;
+  return { sf, sl };
+}
+
 function currentTZ() { return COUNTRIES[state.country].tz; }
 
-// ============ QUIVER: BOLSO NICARAGUA (escenario base, Master v9) ============
 const quiver = [
   {
     id: 1, name: "Ghost", brand: "Pyzel", role: "DÍA EN FORMA · Step-up, tamaño y tubo",
     length: 6.42, lengthLabel: "6'5\"", volume: 39.2, tail: "Round", fins: 5, finType: "thruster",
-    finSystem: "Futures",
-    construction: "PU/PE",
+    finSystem: "Futures", construction: "PU/PE",
     tags: ["stepup", "solid", "hollow", "reef-point"],
     note: "Step-up para olas buenas/fuertes/huecas. Reef/point/beach con tamaño. La tabla del día bueno.",
     finSets: {
@@ -213,8 +220,7 @@ const quiver = [
   {
     id: 2, name: "Boss Up Volcanic", brand: "Slater Designs", role: "TODO TERRENO · Caballo de batalla diario",
     length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
-    finSystem: "Futures",
-    construction: "I-Bolic + Volcanic",
+    finSystem: "Futures", construction: "I-Bolic + Volcanic",
     tags: ["stepup", "versatile", "one-board-quiver", "responsive"],
     note: "Caballo de batalla: funciona en forma y cansado. Lamination Volcanic — durable en boardbag/reef.",
     finSets: {
@@ -227,8 +233,7 @@ const quiver = [
   {
     id: 3, name: "Mindcraft (Midcraft)", brand: "Slater Designs", role: "DÍA FLOJO · Más foam, remada fácil",
     length: 6.25, lengthLabel: "6'3\"", volume: 41.6, tail: "Round", fins: 5, finType: "quad-thruster",
-    finSystem: "Futures",
-    construction: "I-Bolic 2.0",
+    finSystem: "Futures", construction: "I-Bolic 2.0",
     tags: ["performance", "speed", "stability", "wide-range", "everyday", "tomo"],
     note: "Tomo mid/high performance: velocidad, estabilidad y rango amplio. Días chicos, shifty o brazos cansados.",
     finSets: {
@@ -240,25 +245,19 @@ const quiver = [
   }
 ];
 
-// ============ FIN SETUP DECISION ============
 function recommendFinSetup(board, c) {
   const power = c.height * c.height * c.period;
   const sets = board.finSets;
-
   if (board.finType === "quad-only") {
     return { set: sets.quad, reason: "Tabla quad-only — único setup posible." };
   }
   if (c.spotType === "beachbreak" && c.spotQuality === "short") {
-    if (sets.thruster) {
-      return { set: sets.thruster, reason: "Beach break corto pide pivote → thruster." };
-    }
+    if (sets.thruster) return { set: sets.thruster, reason: "Beach break corto pide pivote → thruster." };
     return { set: sets.quad, reason: "Solo quad disponible; espera pared para que funcione." };
   }
   if ((c.spotType === "point" || c.spotType === "reef") && c.spotQuality === "long" && power > 12) {
     if (sets.quad) {
-      if (power > 30 && sets.stepup) {
-        return { set: sets.stepup, reason: "Pared larga + potencia alta → quad con set de step-up para hold." };
-      }
+      if (power > 30 && sets.stepup) return { set: sets.stepup, reason: "Pared larga + potencia alta → quad con set de step-up para hold." };
       return { set: sets.quad, reason: "Pared larga con potencia → quad para drive." };
     }
     return { set: sets.thruster, reason: "Solo thruster disponible." };
@@ -270,20 +269,45 @@ function recommendFinSetup(board, c) {
     }
     return { set: sets.thruster, reason: "Solo thruster — surfeálo con cuidado en este tamaño." };
   }
-  if (board.defaultSetup === "quad" && sets.quad) {
-    return { set: sets.quad, reason: "Setup recomendado de fábrica." };
-  }
-  if (sets.thruster) {
-    return { set: sets.thruster, reason: "Setup default — más versátil." };
-  }
+  if (board.defaultSetup === "quad" && sets.quad) return { set: sets.quad, reason: "Setup recomendado de fábrica." };
+  if (sets.thruster) return { set: sets.thruster, reason: "Setup default — más versátil." };
   return { set: sets.quad, reason: "Setup default." };
 }
 
-// ============ SCORING ALGORITHM ============
+function finDelta(board, c, setup) {
+  const power = c.height * c.height * c.period;
+  let d = 0; const why = [];
+  if (setup === "quad") {
+    if ((c.spotType === "point" || c.spotType === "reef") && c.spotQuality === "long") { d += 6; why.push("más drive y velocidad en pared larga"); }
+    if (power > 25) { d += 4; why.push("más hold con tamaño/tubo"); }
+    if (c.spotType === "beachbreak" && c.spotQuality === "short") { d -= 8; why.push("pierdes pivote en secciones cortas"); }
+    if (board.finType === "thruster" && power < 12) { d -= 2; why.push("esta tabla rinde mejor en thruster con poca fuerza"); }
+  } else if (setup === "thruster") {
+    if (c.spotType === "beachbreak" && c.spotQuality === "short") { d += 6; why.push("pivote y verticalidad en ola corta"); }
+    if (power < 12) { d += 2; why.push("más suelta en olas chicas"); }
+    if ((c.spotType === "point" || c.spotType === "reef") && c.spotQuality === "long" && power > 18) { d -= 6; why.push("le falta hold/drive para esta pared"); }
+    if (board.finType === "quad-prefer") { d -= 2; why.push("esta tabla está diseñada quad-first"); }
+  }
+  return { d, why };
+}
+
+function effectiveSetup(board, c) {
+  if (c.finMode === "thruster" && board.finSets.thruster) return "thruster";
+  if (c.finMode === "quad" && board.finSets.quad) return "quad";
+  const rec = recommendFinSetup(board, c);
+  return rec.set.config.toLowerCase().includes("quad") ? "quad" : "thruster";
+}
+
+function chooseFinSet(board, c) {
+  if (c.finMode === "thruster" && board.finSets.thruster) return { set: board.finSets.thruster, reason: "Forzado por ti: thruster.", forced: true };
+  if (c.finMode === "quad" && board.finSets.quad) return { set: board.finSets.quad, reason: "Forzado por ti: quad.", forced: true };
+  const rec = recommendFinSetup(board, c);
+  if (c.finMode !== "auto") rec.reason = "Esta tabla no tiene ese setup — uso el recomendado. " + rec.reason;
+  return rec;
+}
+
 function scoreBoard(board, c) {
   const power = c.height * c.height * c.period;
-
-  // Volumen ideal paramétrico al peso (ratios L/kg calibrados)
   let idealVolume;
   if (power < 6) idealVolume = USER_WEIGHT * 0.485;
   else if (power < 12) idealVolume = USER_WEIGHT * 0.447;
@@ -296,11 +320,9 @@ function scoreBoard(board, c) {
   if (c.windDir === "crosson") idealVolume += 1;
   if (c.windDir === "onshore") idealVolume += 3;
 
-  // VOLUME SCORE (40%)
   const volDiff = Math.abs(board.volume - idealVolume);
   const volumeScore = Math.max(0, 100 - volDiff * 7);
 
-  // LENGTH SCORE (15%)
   let idealLength;
   if (power < 8) idealLength = 6.67;
   else if (power < 15) idealLength = 6.5;
@@ -310,7 +332,6 @@ function scoreBoard(board, c) {
   const lengthDiff = Math.abs(board.length - idealLength);
   const lengthScore = Math.max(0, 100 - lengthDiff * 25);
 
-  // WAVE TYPE FIT (45%)
   let typeScore = 50;
   if (power < 8) {
     if (board.tags.includes("midlength") || board.tags.includes("grovel")) typeScore = 100;
@@ -341,7 +362,6 @@ function scoreBoard(board, c) {
     else typeScore = 30;
   }
 
-  // SPOT ADJUSTMENT
   if (c.spotType === "beachbreak") {
     if (board.finType === "quad-only") typeScore -= 10;
     if (c.spotQuality === "short" && board.finType === "quad-only") typeScore -= 5;
@@ -350,28 +370,27 @@ function scoreBoard(board, c) {
     if (board.tags.includes("hollow")) typeScore += 5;
   }
 
-  // WIND PENALTY
   let windPenalty = 0;
-  if (c.wind > 20 && board.volume < 40) {
-    windPenalty = (c.wind - 20) * 1.2;
-  }
+  if (c.wind > 20 && board.volume < 40) windPenalty = (c.wind - 20) * 1.2;
   if (c.wind > 30 && board.volume < 42) windPenalty += 8;
 
-  const finalScore = (volumeScore * 0.40 + lengthScore * 0.15 + typeScore * 0.45) - windPenalty;
+  const setup = effectiveSetup(board, c);
+  const fin = finDelta(board, c, setup);
+
+  const finalScore = (volumeScore * 0.40 + lengthScore * 0.15 + typeScore * 0.45) - windPenalty + fin.d;
   return {
     score: Math.max(0, Math.min(100, finalScore)),
     volumeScore, lengthScore, typeScore, windPenalty,
-    idealVolume, idealLength, power
+    idealVolume, idealLength, power,
+    setup, finAdj: fin.d, finWhy: fin.why
   };
 }
 
-// ============ FORECAST (Open-Meteo, próximos 7 días) ============
 const forecastCache = {};
 let currentForecast = null;
 let selectedDayIdx = null;
 
 function classifyWind(windFromDeg, facingDeg) {
-  // offshore = viento que viene desde tierra = desde (facing + 180)
   const offshoreDir = (facingDeg + 180) % 360;
   let d = Math.abs(windFromDeg - offshoreDir) % 360;
   if (d > 180) d = 360 - d;
@@ -431,7 +450,6 @@ async function fetchForecast(spotKey) {
   const times = m.hourly.time;
   const days = [];
   const t0 = todayISO();
-  // arrancar en el día de hoy (por si la API devuelve desde ayer, buscamos el índice de hoy 07:00)
   let start = times.findIndex(t => t.slice(0, 10) === t0);
   if (start < 0) start = 0;
   start = Math.floor(start / 24) * 24;
@@ -440,15 +458,14 @@ async function fetchForecast(spotKey) {
     const i = start + d * 24 + 7; // 7:00 AM local
     if (i >= times.length) break;
     const windFrom = w.hourly.wind_direction_10m[i];
-    const day = {
+    days.push({
       iso: times[i].slice(0, 10),
       height: Math.round((m.hourly.wave_height[i] ?? 0) * 10) / 10,
       period: Math.round(m.hourly.wave_period[i] ?? 0),
       wind: Math.round(w.hourly.wind_speed_10m[i] ?? 0),
       windFrom,
       windClass: classifyWind(windFrom, s.facing)
-    };
-    days.push(day);
+    });
   }
   forecastCache[spotKey] = days;
   return days;
@@ -472,6 +489,9 @@ function renderForecastStrip() {
   const strip = document.getElementById("forecastStrip");
   const status = document.getElementById("forecastStatus");
   document.getElementById("forecastSpotName").textContent = SPOTS[state.spot].label;
+  const links = externalLinks(state.spot);
+  document.getElementById("extLinks").innerHTML =
+    `Contrasta este spot: <a href="${links.sl}" target="_blank" rel="noopener" class="text-sky-600 underline font-semibold">Surfline</a> · <a href="${links.sf}" target="_blank" rel="noopener" class="text-sky-600 underline font-semibold">Surf-Forecast</a>`;
 
   if (!currentForecast) {
     strip.innerHTML = '<div class="col-span-full text-xs text-slate-400 py-3 text-center">Cargando forecast…</div>';
@@ -538,10 +558,9 @@ async function loadForecast(autoApplyToday) {
   }
 }
 
-// ============ UI ============
 const state = {
   height: 1.8, period: 8, wind: 25, windDir: "crossoff",
-  country: "do",
+  country: "do", finMode: "auto",
   spot: "pato", spotType: SPOTS.pato.type, spotQuality: SPOTS.pato.quality
 };
 
@@ -554,10 +573,7 @@ function getPowerLabel(power) {
 }
 
 function getWindStateLabel(wind, dir) {
-  const dirMap = {
-    offshore: "Offshore", crossoff: "Cross-off", cross: "Cross",
-    crosson: "Cross-on", onshore: "Onshore"
-  };
+  const dirMap = { offshore: "Offshore", crossoff: "Cross-off", cross: "Cross", crosson: "Cross-on", onshore: "Onshore" };
   let bucket = wind < 10 ? "Calmo" : wind < 20 ? "Suave" : wind < 30 ? "Moderado" : "Fuerte";
   return `${bucket} · ${dirMap[dir]}`;
 }
@@ -594,12 +610,8 @@ function buildReasoning(board, result, c) {
   else if (result.typeScore >= 70) reasons.push(`✓ Tipo aceptable`);
   else if (result.typeScore < 40) reasons.push(`✗ No diseñada para este tipo de ola`);
 
-  if (c.spotType === "beachbreak" && board.finType === "quad-only") {
-    reasons.push(`⚠ Quad pura en beach break corto`);
-  }
-  if ((c.spotType === "reef" || c.spotType === "point") && (board.finType === "quad-only" || board.finType === "quad-prefer")) {
-    reasons.push(`✓ Quad ideal para pared larga`);
-  }
+  if (c.spotType === "beachbreak" && board.finType === "quad-only") reasons.push(`⚠ Quad pura en beach break corto`);
+  if ((c.spotType === "reef" || c.spotType === "point") && (board.finType === "quad-only" || board.finType === "quad-prefer")) reasons.push(`✓ Quad ideal para pared larga`);
   return reasons;
 }
 
@@ -622,8 +634,23 @@ function render() {
     const badge = getRecommendationBadge(i, r.score);
     const reasons = buildReasoning(b, r, state);
 
-    const finRec = recommendFinSetup(b, state);
+    const finRec = chooseFinSet(b, state);
     const isTopPick = i === 0 && r.score >= 70;
+
+    const dT = finDelta(b, state, "thruster").d;
+    const dQ = finDelta(b, state, "quad").d;
+    const fmt = v => (v > 0 ? "+" + v : v.toString());
+    const finCompare = `
+      <div class="text-[11px] mt-1.5 text-slate-600">
+        Efecto aquí:
+        <span class="font-semibold px-1 py-0.5 rounded ${r.setup === 'thruster' ? 'bg-slate-800 text-white' : ''} ${dT >= dQ ? 'text-emerald-700' : 'text-slate-500'}">Thruster ${fmt(dT)}</span> ·
+        <span class="font-semibold px-1 py-0.5 rounded ${r.setup === 'quad' ? 'bg-slate-800 text-white' : ''} ${dQ >= dT ? 'text-emerald-700' : 'text-slate-500'}">Quad ${fmt(dQ)}</span>
+        <span class="text-slate-400">pts de score</span>
+      </div>`;
+
+    if (r.finAdj !== 0) {
+      reasons.push(`${r.finAdj > 0 ? '✓' : '✗'} Quillas ${r.setup === 'quad' ? 'quad' : 'thruster'} en este spot: ${fmt(r.finAdj)} pts (${r.finWhy.join('; ')})`);
+    }
 
     return `
       <div class="board-card border-2 ${isTopPick ? 'border-emerald-400 bg-emerald-50' : 'border-slate-200 bg-white'} rounded-xl p-4">
@@ -658,6 +685,7 @@ function render() {
               <div class="text-sm font-semibold text-slate-900 mt-0.5">${finRec.set.name}</div>
               <div class="text-xs text-slate-600 mt-0.5">${finRec.reason}</div>
               ${finRec.set.note ? `<div class="text-xs text-slate-500 italic mt-0.5">${finRec.set.note}</div>` : ''}
+              ${finCompare}
             </div>
           </div>
         </div>
@@ -674,7 +702,6 @@ function render() {
   document.getElementById("rankings").innerHTML = html;
 }
 
-// ============ COUNTRY + SPOT BUTTONS ============
 function selectSpot(key) {
   state.spot = key;
   state.spotType = SPOTS[key].type;
@@ -693,7 +720,6 @@ function buildCountryButtons() {
     btn.addEventListener("click", () => {
       if (btn.dataset.country === state.country) return;
       state.country = btn.dataset.country;
-      // primer spot del país seleccionado
       const first = Object.keys(SPOTS).find(k => SPOTS[k].country === state.country);
       buildCountryButtons();
       buildSpotButtons();
@@ -721,16 +747,37 @@ function buildSpotButtons() {
   if (active) active.classList.add("bg-sky-500", "text-white", "border-sky-500");
 }
 
-// ============ EVENTS ============
+function paintFinButtons() {
+  document.querySelectorAll(".fin-btn").forEach(b => {
+    const on = b.dataset.fin === state.finMode;
+    b.classList.toggle("bg-sky-600", on);
+    b.classList.toggle("text-white", on);
+    b.classList.toggle("border-sky-600", on);
+  });
+  const notes = {
+    auto: "El sistema elige el setup por tabla según spot, tamaño y período — y ajusta el score.",
+    thruster: "Forzando thruster en las 3 tablas: gana pivote/verticalidad, pierde hold y drive en paredes largas.",
+    quad: "Forzando quad en las 3 tablas: gana drive, velocidad y hold; pierde pivote en beach breaks cortos."
+  };
+  document.getElementById("finModeNote").textContent = notes[state.finMode];
+}
+document.querySelectorAll(".fin-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.finMode = btn.dataset.fin;
+    paintFinButtons();
+    render();
+  });
+});
+
 document.getElementById("height").addEventListener("input", e => { state.height = parseFloat(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("period").addEventListener("input", e => { state.period = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("wind").addEventListener("input", e => { state.wind = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("windDir").addEventListener("change", e => { state.windDir = e.target.value; selectedDayIdx = null; renderForecastStrip(); render(); });
 
-// ============ INIT ============
 document.getElementById("todayStamp").textContent = new Date().toLocaleDateString("es-DO", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "America/Santo_Domingo" });
 buildCountryButtons();
 buildSpotButtons();
+paintFinButtons();
 render();
 loadForecast(true);
 </script>
