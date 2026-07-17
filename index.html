@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0c4a6e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Quiver">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E">
+<title>Quiver Selector — Bolso Nicaragua · Pablo Cuello</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  .ocean-bg {
+    background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 50%, #0284c7 100%);
+  }
+  .glass {
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+  }
+  input[type="range"] {
+    -webkit-appearance: none;
+    height: 8px;
+    border-radius: 4px;
+    background: #e0f2fe;
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #0284c7;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  .board-card { transition: all 0.3s ease; }
+  .board-card:hover { transform: translateY(-2px); }
+  .score-bar { transition: width 0.5s ease; }
+  .day-card { transition: all 0.2s ease; cursor: pointer; }
+  .day-card:hover { transform: translateY(-2px); }
+  /* Móvil: strip de días con scroll horizontal, tarjetas de ancho fijo */
+  @media (max-width: 767px) {
+    #forecastStrip { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+    #forecastStrip .day-card { min-width: 104px; flex-shrink: 0; scroll-snap-align: start; }
+  }
+  /* Táctil: áreas de toque cómodas */
+  .spot-btn, .country-btn { min-height: 44px; }
+</style>
+</head>
+<body class="ocean-bg min-h-screen p-4 md:p-8">
+
+<div class="max-w-6xl mx-auto">
+
+  <!-- Header -->
+  <div class="text-white mb-6">
+    <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector — Bolso Nicaragua</h1>
+    <p class="text-cyan-100 mt-1">Pablo Cuello · 3 tablas (escenario 220 lb) · 99.8 kg / 220 lb</p>
+  </div>
+
+  <!-- Inputs -->
+  <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
+    <h2 class="text-xl font-bold text-slate-800 mb-4">Condiciones del día</h2>
+
+    <!-- Country selector -->
+    <div class="mb-3">
+      <label class="block text-sm font-semibold text-slate-700 mb-2">País</label>
+      <div id="countryGrid" class="flex flex-wrap gap-2"></div>
+    </div>
+
+    <!-- Spot selector -->
+    <div class="mb-4">
+      <label class="block text-sm font-semibold text-slate-700 mb-2">Spot</label>
+      <div id="spotGrid" class="grid grid-cols-2 md:grid-cols-5 gap-2"></div>
+    </div>
+
+    <!-- 7-day forecast strip -->
+    <div class="mb-5 pt-4 border-t border-slate-200">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">📅 Próximos 7 días — <span id="forecastSpotName"></span></p>
+        <p id="forecastStatus" class="text-xs text-slate-400"></p>
+      </div>
+      <div id="forecastStrip" class="grid md:grid-cols-7 gap-2"></div>
+      <p class="text-[11px] text-slate-400 mt-2">Valores de la sesión de la mañana (7:00 AM). Clic en un día para cargarlo en los sliders. ⭐ = mejor día de la semana en este spot. Fuente: Open-Meteo (marine + wind), se actualiza solo cada vez que abres la página.</p>
+    </div>
+
+    <!-- Sliders -->
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">
+          Tamaño de ola: <span id="heightVal" class="text-sky-700 font-bold">1.8 m</span>
+        </label>
+        <input type="range" id="height" min="0.5" max="4" step="0.1" value="1.8" class="w-full">
+        <div class="flex justify-between text-xs text-slate-500">
+          <span>0.5m flat</span><span>4m XXL</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">
+          Período: <span id="periodVal" class="text-sky-700 font-bold">8 s</span>
+        </label>
+        <input type="range" id="period" min="5" max="18" step="1" value="8" class="w-full">
+        <div class="flex justify-between text-xs text-slate-500">
+          <span>5s wind swell</span><span>18s ground</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">
+          Viento: <span id="windVal" class="text-sky-700 font-bold">25 km/h</span>
+        </label>
+        <input type="range" id="wind" min="0" max="50" step="5" value="25" class="w-full">
+        <div class="flex justify-between text-xs text-slate-500">
+          <span>0 calmo</span><span>50 huracán</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-slate-700 mb-1">Dirección del viento</label>
+        <select id="windDir" class="w-full p-2 rounded-lg border-2 border-sky-200">
+          <option value="offshore">Offshore (limpio, cara perfecta)</option>
+          <option value="crossoff" selected>Cross-offshore (limpio)</option>
+          <option value="cross">Cross (neutral)</option>
+          <option value="crosson">Cross-onshore (picado)</option>
+          <option value="onshore">Onshore (basura)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Power indicator -->
+  <div id="powerIndicator" class="glass rounded-2xl p-4 mb-6 shadow-xl">
+    <div class="flex items-center justify-between">
+      <div>
+        <p class="text-xs uppercase tracking-wide text-slate-500">Potencia estimada</p>
+        <p id="powerLabel" class="text-2xl font-bold text-slate-800">—</p>
+      </div>
+      <div class="text-right">
+        <p class="text-xs uppercase tracking-wide text-slate-500">Tipo de día</p>
+        <p id="dayLabel" class="text-lg font-semibold text-sky-700">—</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommendations -->
+  <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
+    <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 Ranking del bolso</h2>
+    <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100. Solo las 3 tablas del bolso base Nicaragua (220–210 lb).</p>
+    <div id="rankings" class="space-y-3"></div>
+  </div>
+
+  <!-- Footer -->
+  <div class="text-center text-cyan-100 text-xs mt-8">
+    <p>Bolso Nicaragua · Master de tablas v9 · Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
+    <p class="mt-1">Peso configurado: 220 lb (99.8 kg) · Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
+  </div>
+</div>
+
+<script>
+// ============ CONFIG ============
+const USER_WEIGHT_LB = 220;
+const USER_WEIGHT = 99.8; // kg (220 lb)
+
+// PAÍSES: cada uno con su zona horaria (afecta la hora de la sesión 7:00 AM y la fecha "HOY")
+const COUNTRIES = {
+  do: { label: "🇩🇴 Rep. Dominicana", tz: "America/Santo_Domingo" },
+  ni: { label: "🇳🇮 Nicaragua",       tz: "America/Managua" }
+};
+
+// SPOTS: lat/lon para forecast + facing = dirección (grados) hacia la que mira la playa (hacia el mar).
+// Con facing se clasifica el viento en offshore/cross/onshore automáticamente.
+// >>> Verificar coordenadas de "pato" y "puntaparaiso": asumidas como Los Patos y Paraíso (Barahona). <<<
+const SPOTS = {
+  // — República Dominicana —
+  pato:         { country: "do", label: "Pato Beach",    lat: 17.9585, lon: -71.1831, facing: 150, type: "beachbreak", quality: "short"  },
+  encuentro:    { country: "do", label: "Encuentro",     lat: 19.7783, lon: -70.4544, facing: 10,  type: "reef",       quality: "long"   },
+  macao:        { country: "do", label: "Macao",         lat: 18.7669, lon: -68.5486, facing: 55,  type: "beachbreak", quality: "medium" },
+  laboca:       { country: "do", label: "La Boca",       lat: 19.7645, lon: -70.3856, facing: 20,  type: "point",      quality: "long"   },
+  playagrande:  { country: "do", label: "Playa Grande",  lat: 19.6689, lon: -69.8975, facing: 10,  type: "beachbreak", quality: "medium" },
+  puntaparaiso: { country: "do", label: "Punta Paraíso", lat: 17.9866, lon: -71.1568, facing: 140, type: "point",      quality: "long"   },
+  coson:        { country: "do", label: "Cosón",         lat: 19.3242, lon: -69.6110, facing: 335, type: "beachbreak", quality: "medium" },
+  nagua:        { country: "do", label: "Nagua",         lat: 19.3960, lon: -69.8330, facing: 45,  type: "beachbreak", quality: "medium" },
+  lapreciosa:   { country: "do", label: "La Preciosa",   lat: 19.6706, lon: -69.9106, facing: 5,   type: "reef",       quality: "long"   },
+  bahoruco:     { country: "do", label: "Bahoruco",      lat: 18.0805, lon: -71.0937, facing: 110, type: "point",      quality: "long"   },
+  // — Nicaragua (Tola / Rivas, Pacífico SW; offshore = viento E del Lago de Nicaragua) —
+  colorado:     { country: "ni", label: "Colorado",      lat: 11.4800, lon: -86.0780, facing: 235, type: "beachbreak", quality: "medium" },
+  pangadrops:   { country: "ni", label: "Panga Drops",   lat: 11.4860, lon: -86.0800, facing: 240, type: "reef",       quality: "medium" },
+  lancesleft:   { country: "ni", label: "Lance's Left",  lat: 11.4280, lon: -86.1130, facing: 230, type: "reef",       quality: "long"   },
+  playgrounds:  { country: "ni", label: "Playgrounds",   lat: 11.4550, lon: -86.1050, facing: 245, type: "reef",       quality: "long"   },
+  popoyo:       { country: "ni", label: "Popoyo",        lat: 11.4487, lon: -86.1027, facing: 245, type: "reef",       quality: "long"   }
+};
+
+function currentTZ() { return COUNTRIES[state.country].tz; }
+
+// ============ QUIVER: BOLSO NICARAGUA (escenario 220 lb, Master v9) ============
+const quiver = [
+  {
+    id: 1, name: "Ghost", brand: "Pyzel", role: "DÍA EN FORMA · Step-up, tamaño y tubo",
+    length: 6.42, lengthLabel: "6'5\"", volume: 39.2, tail: "Round", fins: 5, finType: "thruster",
+    finSystem: "Futures",
+    construction: "PU/PE",
+    tags: ["stepup", "solid", "hollow", "reef-point"],
+    note: "Step-up para olas buenas/fuertes/huecas. Reef/point/beach con tamaño. La tabla del día bueno.",
+    finSets: {
+      thruster: { name: "Futures JJF Techflex Large", config: "Thruster", note: "Set oficial Pyzel para tu peso. Confirmado 2026-06-10." },
+      quad:     { name: "Futures JJF Techflex L + trailers QD2 3.75\"/4.0\"", config: "Quad", note: "Para tubo — más hold y drive en olas huecas." }
+    },
+    defaultSetup: "thruster"
+  },
+  {
+    id: 2, name: "Boss Up Volcanic", brand: "Slater Designs", role: "TODO TERRENO · Caballo de batalla diario",
+    length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
+    finSystem: "Futures",
+    construction: "I-Bolic + Volcanic",
+    tags: ["stepup", "versatile", "one-board-quiver", "responsive"],
+    note: "Caballo de batalla: funciona en forma y cansado. Lamination Volcanic — durable en boardbag/reef.",
+    finSets: {
+      quad:     { name: "Endorfins KS1 (Large) configurado como Quad", config: "Quad", note: "Recomendación oficial Firewire. Confirmado 2026-06-10." },
+      thruster: { name: "Endorfins KS1 (Large) como Thruster", config: "Thruster", note: "Más radical y vertical." },
+      stepup:   { name: "Endorfins KSR (Large)", config: "Quad", note: "Para olas grandes con pared — más hold y arcos largos." }
+    },
+    defaultSetup: "quad"
+  },
+  {
+    id: 3, name: "Mindcraft (Midcraft)", brand: "Slater Designs", role: "DÍA FLOJO · Más foam, remada fácil",
+    length: 6.25, lengthLabel: "6'3\"", volume: 41.6, tail: "Round", fins: 5, finType: "quad-thruster",
+    finSystem: "Futures",
+    construction: "I-Bolic 2.0",
+    tags: ["performance", "speed", "stability", "wide-range", "everyday", "tomo"],
+    note: "Tomo mid/high performance: velocidad, estabilidad y rango amplio. Días chicos, shifty o brazos cansados.",
+    finSets: {
+      quad:     { name: "Endorfins KSR (Large) como Quad", config: "Quad", note: "Oficial Firewire — speed y hold. Confirmado 2026-06-10." },
+      thruster: { name: "Endorfins KSR (Large) como Thruster", config: "Thruster", note: "Para control en pocket." },
+      stepup:   { name: "Endorfins KS1 (Large)", config: "Quad / Thruster", note: "Más pivote y release." }
+    },
+    defaultSetup: "quad"
+  }
+];
+
+// ============ FIN SETUP DECISION ============
+function recommendFinSetup(board, c) {
+  const power = c.height * c.height * c.period;
+  const sets = board.finSets;
+
+  if (board.finType === "quad-only") {
+    return { set: sets.quad, reason: "Tabla quad-only — único setup posible." };
+  }
+  if (c.spotType === "beachbreak" && c.spotQuality === "short") {
+    if (sets.thruster) {
+      return { set: sets.thruster, reason: "Beach break corto pide pivote → thruster." };
+    }
+    return { set: sets.quad, reason: "Solo quad disponible; espera pared para que funcione." };
+  }
+  if ((c.spotType === "point" || c.spotType === "reef") && c.spotQuality === "long" && power > 12) {
+    if (sets.quad) {
+      if (power > 30 && sets.stepup) {
+        return { set: sets.stepup, reason: "Pared larga + potencia alta → quad con set de step-up para hold." };
+      }
+      return { set: sets.quad, reason: "Pared larga con potencia → quad para drive." };
+    }
+    return { set: sets.thruster, reason: "Solo thruster disponible." };
+  }
+  if (power > 30) {
+    if (sets.quad) {
+      if (sets.stepup) return { set: sets.stepup, reason: "Olas grandes → set step-up para hold máximo." };
+      return { set: sets.quad, reason: "Olas grandes → quad para hold." };
+    }
+    return { set: sets.thruster, reason: "Solo thruster — surfeálo con cuidado en este tamaño." };
+  }
+  if (board.defaultSetup === "quad" && sets.quad) {
+    return { set: sets.quad, reason: "Setup recomendado de fábrica." };
+  }
+  if (sets.thruster) {
+    return { set: sets.thruster, reason: "Setup default — más versátil." };
+  }
+  return { set: sets.quad, reason: "Setup default." };
+}
+
+// ============ SCORING ALGORITHM ============
+function scoreBoard(board, c) {
+  const power = c.height * c.height * c.period;
+
+  // Volumen ideal paramétrico al peso (ratios L/kg calibrados; a 99.8 kg ≈ 48/45/42/40/38 L)
+  let idealVolume;
+  if (power < 6) idealVolume = USER_WEIGHT * 0.485;
+  else if (power < 12) idealVolume = USER_WEIGHT * 0.447;
+  else if (power < 20) idealVolume = USER_WEIGHT * 0.417;
+  else if (power < 35) idealVolume = USER_WEIGHT * 0.398;
+  else idealVolume = USER_WEIGHT * 0.379;
+
+  if (c.wind > 25) idealVolume += 2;
+  if (c.wind > 35) idealVolume += 3;
+  if (c.windDir === "crosson") idealVolume += 1;
+  if (c.windDir === "onshore") idealVolume += 3;
+
+  // VOLUME SCORE (40%)
+  const volDiff = Math.abs(board.volume - idealVolume);
+  const volumeScore = Math.max(0, 100 - volDiff * 7);
+
+  // LENGTH SCORE (15%)
+  let idealLength;
+  if (power < 8) idealLength = 6.67;
+  else if (power < 15) idealLength = 6.5;
+  else if (power < 25) idealLength = 6.5;
+  else idealLength = 6.6;
+  if (c.wind > 25) idealLength += 0.1;
+  const lengthDiff = Math.abs(board.length - idealLength);
+  const lengthScore = Math.max(0, 100 - lengthDiff * 25);
+
+  // WAVE TYPE FIT (45%)
+  let typeScore = 50;
+  if (power < 8) {
+    if (board.tags.includes("midlength") || board.tags.includes("grovel")) typeScore = 100;
+    else if (board.tags.includes("everyday")) typeScore = 80;
+    else if (board.tags.includes("performance-xl")) typeScore = 75;
+    else if (board.tags.includes("hollow") || board.tags.includes("stepup")) typeScore = 15;
+    else typeScore = 35;
+  } else if (power < 18) {
+    if (board.tags.includes("everyday") || board.tags.includes("performance-xl")) typeScore = 100;
+    else if (board.tags.includes("daily") || board.tags.includes("versatile")) typeScore = 90;
+    else if (board.tags.includes("midlength")) typeScore = 80;
+    else if (board.tags.includes("shortboard")) typeScore = 80;
+    else if (board.tags.includes("hollow")) typeScore = 55;
+    else if (board.tags.includes("stepup")) typeScore = 65;
+    else typeScore = 60;
+  } else if (power < 30) {
+    if (board.tags.includes("stepup") || board.tags.includes("performance-xl")) typeScore = 100;
+    else if (board.tags.includes("hollow")) typeScore = 90;
+    else if (board.tags.includes("versatile")) typeScore = 85;
+    else if (board.tags.includes("shortboard")) typeScore = 80;
+    else if (board.tags.includes("everyday")) typeScore = 70;
+    else if (board.tags.includes("midlength") || board.tags.includes("grovel")) typeScore = 45;
+    else typeScore = 60;
+  } else {
+    if (board.tags.includes("stepup") || board.tags.includes("hollow")) typeScore = 100;
+    else if (board.tags.includes("performance-xl")) typeScore = 80;
+    else if (board.tags.includes("shortboard")) typeScore = 65;
+    else typeScore = 30;
+  }
+
+  // SPOT ADJUSTMENT
+  if (c.spotType === "beachbreak") {
+    if (board.finType === "quad-only") typeScore -= 10;
+    if (c.spotQuality === "short" && board.finType === "quad-only") typeScore -= 5;
+  } else if (c.spotType === "reef" || c.spotType === "point") {
+    if (board.finType === "quad-only" || board.finType === "quad-prefer") typeScore += 10;
+    if (board.tags.includes("hollow")) typeScore += 5;
+  }
+
+  // WIND PENALTY
+  let windPenalty = 0;
+  if (c.wind > 20 && board.volume < 40) {
+    windPenalty = (c.wind - 20) * 1.2;
+  }
+  if (c.wind > 30 && board.volume < 42) windPenalty += 8;
+
+  const finalScore = (volumeScore * 0.40 + lengthScore * 0.15 + typeScore * 0.45) - windPenalty;
+  return {
+    score: Math.max(0, Math.min(100, finalScore)),
+    volumeScore, lengthScore, typeScore, windPenalty,
+    idealVolume, idealLength, power
+  };
+}
+
+// ============ FORECAST (Open-Meteo, próximos 7 días) ============
+const forecastCache = {};
+let currentForecast = null;
+let selectedDayIdx = null;
+
+function classifyWind(windFromDeg, facingDeg) {
+  // offshore = viento que viene desde tierra = desde (facing + 180)
+  const offshoreDir = (facingDeg + 180) % 360;
+  let d = Math.abs(windFromDeg - offshoreDir) % 360;
+  if (d > 180) d = 360 - d;
+  if (d <= 40) return "offshore";
+  if (d <= 70) return "crossoff";
+  if (d <= 110) return "cross";
+  if (d <= 140) return "crosson";
+  return "onshore";
+}
+
+const POWER_BADGE = {
+  "Débil":  "bg-amber-100 text-amber-700",
+  "Floja":  "bg-yellow-100 text-yellow-700",
+  "Media":  "bg-sky-100 text-sky-700",
+  "Sólida": "bg-blue-100 text-blue-800",
+  "Pesada": "bg-purple-100 text-purple-800"
+};
+
+const WIND_DIR_LABEL = {
+  offshore: { txt: "Offshore", cls: "text-emerald-700 bg-emerald-100" },
+  crossoff: { txt: "Cross-off", cls: "text-sky-700 bg-sky-100" },
+  cross:    { txt: "Cross", cls: "text-slate-600 bg-slate-100" },
+  crosson:  { txt: "Cross-on", cls: "text-orange-700 bg-orange-100" },
+  onshore:  { txt: "Onshore", cls: "text-rose-700 bg-rose-100" }
+};
+
+function todayISO() {
+  return new Intl.DateTimeFormat("en-CA", { timeZone: currentTZ() }).format(new Date());
+}
+
+function dayLabelFromISO(iso) {
+  const d = new Date(iso + "T12:00:00");
+  const wd = d.toLocaleDateString("es-DO", { weekday: "short", timeZone: currentTZ() });
+  const dm = d.toLocaleDateString("es-DO", { day: "numeric", month: "short", timeZone: currentTZ() });
+  return { wd: wd.charAt(0).toUpperCase() + wd.slice(1).replace(".", ""), dm };
+}
+
+function dayQuality(day) {
+  const power = day.height * day.height * day.period;
+  const windBonus = { offshore: 30, crossoff: 15, cross: 0, crosson: -20, onshore: -40 }[day.windClass] || 0;
+  return Math.min(power, 35) - Math.abs(power - 22) * 0.5 + windBonus - Math.max(0, day.wind - 25) * 0.5;
+}
+
+async function fetchForecast(spotKey) {
+  if (forecastCache[spotKey]) return forecastCache[spotKey];
+  const s = SPOTS[spotKey];
+  const base = `latitude=${s.lat}&longitude=${s.lon}&timezone=${encodeURIComponent(COUNTRIES[s.country].tz)}&forecast_days=8`;
+  const [mRes, wRes] = await Promise.all([
+    fetch(`https://marine-api.open-meteo.com/v1/marine?${base}&hourly=wave_height,wave_period,wave_direction`),
+    fetch(`https://api.open-meteo.com/v1/forecast?${base}&hourly=wind_speed_10m,wind_direction_10m`)
+  ]);
+  if (!mRes.ok || !wRes.ok) throw new Error("API error");
+  let m = await mRes.json(), w = await wRes.json();
+  if (Array.isArray(m)) m = m[0];
+  if (Array.isArray(w)) w = w[0];
+
+  const times = m.hourly.time;
+  const days = [];
+  const t0 = todayISO();
+  // arrancar en el día de hoy (por si la API devuelve desde ayer, buscamos el índice de hoy 07:00)
+  let start = times.findIndex(t => t.slice(0, 10) === t0);
+  if (start < 0) start = 0;
+  start = Math.floor(start / 24) * 24;
+
+  for (let d = 0; d < 7; d++) {
+    const i = start + d * 24 + 7; // 7:00 AM local
+    if (i >= times.length) break;
+    const windFrom = w.hourly.wind_direction_10m[i];
+    const day = {
+      iso: times[i].slice(0, 10),
+      height: Math.round((m.hourly.wave_height[i] ?? 0) * 10) / 10,
+      period: Math.round(m.hourly.wave_period[i] ?? 0),
+      wind: Math.round(w.hourly.wind_speed_10m[i] ?? 0),
+      windFrom,
+      windClass: classifyWind(windFrom, s.facing)
+    };
+    days.push(day);
+  }
+  forecastCache[spotKey] = days;
+  return days;
+}
+
+function applyDay(day, idx) {
+  selectedDayIdx = idx;
+  state.height = Math.min(4, Math.max(0.5, day.height || 0.5));
+  state.period = Math.min(18, Math.max(5, day.period || 5));
+  state.wind = Math.min(50, Math.max(0, Math.round(day.wind / 5) * 5));
+  state.windDir = day.windClass;
+  document.getElementById("height").value = state.height;
+  document.getElementById("period").value = state.period;
+  document.getElementById("wind").value = state.wind;
+  document.getElementById("windDir").value = state.windDir;
+  renderForecastStrip();
+  render();
+}
+
+function renderForecastStrip() {
+  const strip = document.getElementById("forecastStrip");
+  const status = document.getElementById("forecastStatus");
+  document.getElementById("forecastSpotName").textContent = SPOTS[state.spot].label;
+
+  if (!currentForecast) {
+    strip.innerHTML = '<div class="col-span-full text-xs text-slate-400 py-3 text-center">Cargando forecast…</div>';
+    return;
+  }
+  if (currentForecast.error) {
+    strip.innerHTML = '<div class="col-span-full text-xs text-rose-600 py-3 text-center">No se pudo cargar el forecast (¿sin internet?). Usa los sliders manualmente.</div>';
+    status.textContent = "";
+    return;
+  }
+
+  const t0 = todayISO();
+  let bestIdx = -1, bestQ = -Infinity;
+  currentForecast.forEach((d, i) => {
+    const q = dayQuality(d);
+    if (q > bestQ) { bestQ = q; bestIdx = i; }
+  });
+
+  strip.innerHTML = currentForecast.map((d, i) => {
+    const lbl = dayLabelFromISO(d.iso);
+    const wl = WIND_DIR_LABEL[d.windClass];
+    const isToday = d.iso === t0;
+    const sel = i === selectedDayIdx;
+    const power = d.height * d.height * d.period;
+    const pw = getPowerLabel(power);
+    const pwCls = POWER_BADGE[pw.label] || "bg-slate-100 text-slate-600";
+    return `
+      <div class="day-card rounded-xl border-2 p-2 text-center ${sel ? 'border-sky-500 bg-sky-50 ring-2 ring-sky-300' : 'border-slate-200 bg-white hover:border-sky-400'}" data-day="${i}">
+        <div class="text-[11px] font-bold ${isToday ? 'text-sky-700' : 'text-slate-500'}">${i === bestIdx ? '⭐ ' : ''}${isToday ? 'HOY' : lbl.wd}</div>
+        <div class="text-[10px] text-slate-400 mb-1">${lbl.dm}</div>
+        <div class="text-sm font-bold text-slate-800">${d.height.toFixed(1)} m</div>
+        <div class="text-[11px] text-slate-500">${d.period} s</div>
+        <div class="text-[11px] text-slate-500">💨 ${d.wind} km/h</div>
+        <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${pwCls}">⚡ ${pw.label} · ${power.toFixed(0)}</div>
+        <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${wl.cls}">${wl.txt}</div>
+      </div>`;
+  }).join('');
+
+  status.textContent = "7:00 AM · " + SPOTS[state.spot].label;
+
+  strip.querySelectorAll(".day-card").forEach(el => {
+    el.addEventListener("click", () => {
+      const i = parseInt(el.dataset.day);
+      applyDay(currentForecast[i], i);
+    });
+  });
+}
+
+async function loadForecast(autoApplyToday) {
+  currentForecast = null;
+  selectedDayIdx = null;
+  renderForecastStrip();
+  try {
+    const days = await fetchForecast(state.spot);
+    currentForecast = days;
+    if (autoApplyToday && days.length) {
+      applyDay(days[0], 0);
+    } else {
+      renderForecastStrip();
+    }
+  } catch (e) {
+    currentForecast = { error: true };
+    renderForecastStrip();
+  }
+}
+
+// ============ UI ============
+const state = {
+  height: 1.8, period: 8, wind: 25, windDir: "crossoff",
+  country: "do",
+  spot: "pato", spotType: SPOTS.pato.type, spotQuality: SPOTS.pato.quality
+};
+
+function getPowerLabel(power) {
+  if (power < 6) return { label: "Débil", color: "text-amber-600", day: "Día flat / grovel" };
+  if (power < 12) return { label: "Floja", color: "text-yellow-600", day: "Día chico" };
+  if (power < 20) return { label: "Media", color: "text-sky-600", day: "Día estándar" };
+  if (power < 35) return { label: "Sólida", color: "text-blue-700", day: "Día prendido" };
+  return { label: "Pesada", color: "text-purple-700", day: "Día grande / step-up" };
+}
+
+function getWindStateLabel(wind, dir) {
+  const dirMap = {
+    offshore: "Offshore", crossoff: "Cross-off", cross: "Cross",
+    crosson: "Cross-on", onshore: "Onshore"
+  };
+  let bucket = wind < 10 ? "Calmo" : wind < 20 ? "Suave" : wind < 30 ? "Moderado" : "Fuerte";
+  return `${bucket} · ${dirMap[dir]}`;
+}
+
+function getScoreColor(score) {
+  if (score >= 80) return "bg-emerald-500";
+  if (score >= 65) return "bg-sky-500";
+  if (score >= 45) return "bg-amber-500";
+  if (score >= 25) return "bg-orange-500";
+  return "bg-rose-500";
+}
+
+function getRecommendationBadge(rank, score) {
+  if (rank === 0 && score >= 70) return { txt: "🥇 IR CON ESTA", cls: "bg-emerald-100 text-emerald-800" };
+  if (rank === 0) return { txt: "🥇 La menos mala", cls: "bg-amber-100 text-amber-800" };
+  if (rank === 1 && score >= 65) return { txt: "🥈 Backup sólido", cls: "bg-sky-100 text-sky-800" };
+  if (rank === 2 && score >= 60) return { txt: "🥉 Alternativa", cls: "bg-cyan-100 text-cyan-800" };
+  if (score < 30) return { txt: "❌ NO sacar", cls: "bg-rose-100 text-rose-800" };
+  if (score < 50) return { txt: "⚠️ Sufrible", cls: "bg-orange-100 text-orange-800" };
+  return null;
+}
+
+function buildReasoning(board, result, c) {
+  const reasons = [];
+  const volDiff = board.volume - result.idealVolume;
+  if (Math.abs(volDiff) < 2) reasons.push(`✓ Volumen ideal (${board.volume}L vs ${result.idealVolume.toFixed(0)}L target)`);
+  else if (volDiff < -3) reasons.push(`✗ Volumen bajo (${board.volume}L, faltan ${Math.abs(volDiff).toFixed(0)}L)`);
+  else if (volDiff > 5) reasons.push(`⚠ Volumen alto (${board.volume}L, sobran ${volDiff.toFixed(0)}L)`);
+  else reasons.push(`~ Volumen aceptable (${board.volume}L vs ${result.idealVolume.toFixed(0)}L)`);
+
+  if (result.windPenalty > 5) reasons.push(`✗ Castigada por viento (${c.wind} km/h) + bajo volumen`);
+
+  if (result.typeScore >= 90) reasons.push(`✓ Tipo perfecto para estas olas`);
+  else if (result.typeScore >= 70) reasons.push(`✓ Tipo aceptable`);
+  else if (result.typeScore < 40) reasons.push(`✗ No diseñada para este tipo de ola`);
+
+  if (c.spotType === "beachbreak" && board.finType === "quad-only") {
+    reasons.push(`⚠ Quad pura en beach break corto`);
+  }
+  if ((c.spotType === "reef" || c.spotType === "point") && (board.finType === "quad-only" || board.finType === "quad-prefer")) {
+    reasons.push(`✓ Quad ideal para pared larga`);
+  }
+  return reasons;
+}
+
+function render() {
+  document.getElementById("heightVal").textContent = state.height.toFixed(1) + " m";
+  document.getElementById("periodVal").textContent = state.period + " s";
+  document.getElementById("windVal").textContent = state.wind + " km/h";
+
+  const power = state.height * state.height * state.period;
+  const p = getPowerLabel(power);
+  document.getElementById("powerLabel").innerHTML = `<span class="${p.color}">${p.label}</span> <span class="text-sm text-slate-500">(${power.toFixed(0)} kJ proxy)</span>`;
+  document.getElementById("dayLabel").textContent = p.day + " · " + getWindStateLabel(state.wind, state.windDir);
+
+  const scored = quiver.map(b => ({ board: b, result: scoreBoard(b, state) }))
+    .sort((a, b) => b.result.score - a.result.score);
+
+  const html = scored.map((item, i) => {
+    const b = item.board;
+    const r = item.result;
+    const badge = getRecommendationBadge(i, r.score);
+    const reasons = buildReasoning(b, r, state);
+    const ratioVol = (b.volume / USER_WEIGHT).toFixed(2);
+
+    const finRec = recommendFinSetup(b, state);
+    const isTopPick = i === 0 && r.score >= 70;
+
+    return `
+      <div class="board-card border-2 ${isTopPick ? 'border-emerald-400 bg-emerald-50' : 'border-slate-200 bg-white'} rounded-xl p-4">
+        <div class="flex flex-wrap items-start justify-between gap-3 mb-2">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-xs font-bold text-slate-400">#${b.id}</span>
+              <h3 class="font-bold text-slate-900">${b.name}</h3>
+              ${badge ? `<span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badge.cls}">${badge.txt}</span>` : ''}
+            </div>
+            <p class="text-xs text-sky-700 font-semibold">${b.role}</p>
+            <p class="text-xs text-slate-500">${b.brand} · ${b.lengthLabel} · ${b.volume}L · Ratio ${ratioVol} L/kg · ${b.fins} cajas ${b.finSystem}</p>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-bold text-slate-800">${r.score.toFixed(0)}</div>
+            <div class="text-xs text-slate-500">/ 100</div>
+          </div>
+        </div>
+
+        <div class="w-full bg-slate-100 rounded-full h-2 mb-3">
+          <div class="score-bar ${getScoreColor(r.score)} h-2 rounded-full" style="width: ${r.score}%"></div>
+        </div>
+
+        <div class="${isTopPick ? 'bg-emerald-100 border-emerald-300' : 'bg-sky-50 border-sky-200'} border rounded-lg p-2.5 mb-3">
+          <div class="flex items-start gap-2">
+            <span class="text-lg leading-none">🐬</span>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-xs font-bold uppercase tracking-wide ${isTopPick ? 'text-emerald-800' : 'text-sky-800'}">Quillas</span>
+                <span class="text-xs font-semibold px-1.5 py-0.5 rounded ${isTopPick ? 'bg-emerald-600 text-white' : 'bg-sky-600 text-white'}">${finRec.set.config}</span>
+              </div>
+              <div class="text-sm font-semibold text-slate-900 mt-0.5">${finRec.set.name}</div>
+              <div class="text-xs text-slate-600 mt-0.5">${finRec.reason}</div>
+              ${finRec.set.note ? `<div class="text-xs text-slate-500 italic mt-0.5">${finRec.set.note}</div>` : ''}
+            </div>
+          </div>
+        </div>
+
+        <div class="text-xs space-y-1 text-slate-700">
+          ${reasons.map(r => `<div>${r}</div>`).join('')}
+        </div>
+
+        <div class="mt-2 text-xs text-slate-500 italic border-t border-slate-100 pt-2">${b.note}</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById("rankings").innerHTML = html;
+}
+
+// ============ COUNTRY + SPOT BUTTONS ============
+function selectSpot(key) {
+  state.spot = key;
+  state.spotType = SPOTS[key].type;
+  state.spotQuality = SPOTS[key].quality;
+  render();
+  loadForecast(true);
+}
+
+function buildCountryButtons() {
+  const grid = document.getElementById("countryGrid");
+  grid.innerHTML = Object.entries(COUNTRIES).map(([key, c]) =>
+    `<button class="country-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 transition ${key === state.country ? 'bg-sky-600 text-white border-sky-600' : 'border-sky-200 hover:border-sky-500'}" data-country="${key}">${c.label}</button>`
+  ).join('');
+
+  grid.querySelectorAll(".country-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (btn.dataset.country === state.country) return;
+      state.country = btn.dataset.country;
+      // primer spot del país seleccionado
+      const first = Object.keys(SPOTS).find(k => SPOTS[k].country === state.country);
+      buildCountryButtons();
+      buildSpotButtons();
+      selectSpot(first);
+    });
+  });
+}
+
+function buildSpotButtons() {
+  const grid = document.getElementById("spotGrid");
+  const spots = Object.entries(SPOTS).filter(([, s]) => s.country === state.country);
+  grid.innerHTML = spots.map(([key, s]) =>
+    `<button class="spot-btn px-3 py-2 rounded-lg text-sm font-medium border-2 border-sky-200 hover:border-sky-500 transition" data-spot="${key}">${s.label}</button>`
+  ).join('');
+
+  grid.querySelectorAll(".spot-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      grid.querySelectorAll(".spot-btn").forEach(b => b.classList.remove("bg-sky-500", "text-white", "border-sky-500"));
+      btn.classList.add("bg-sky-500", "text-white", "border-sky-500");
+      selectSpot(btn.dataset.spot);
+    });
+  });
+
+  const active = grid.querySelector(`[data-spot="${state.spot}"]`) || grid.querySelector(".spot-btn");
+  if (active) active.classList.add("bg-sky-500", "text-white", "border-sky-500");
+}
+
+// ============ EVENTS ============
+document.getElementById("height").addEventListener("input", e => { state.height = parseFloat(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
+document.getElementById("period").addEventListener("input", e => { state.period = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
+document.getElementById("wind").addEventListener("input", e => { state.wind = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
+document.getElementById("windDir").addEventListener("change", e => { state.windDir = e.target.value; selectedDayIdx = null; renderForecastStrip(); render(); });
+
+// ============ INIT ============
+document.getElementById("todayStamp").textContent = new Date().toLocaleDateString("es-DO", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "America/Santo_Domingo" });
+buildCountryButtons();
+buildSpotButtons();
+render();
+loadForecast(true);
+</script>
+
+</body>
+</html>
