@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Quiver">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E">
-<title>Quiver Selector — Bolso Nicaragua</title>
+<title>Quiver Selector</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
@@ -45,7 +45,7 @@
     #forecastStrip { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 4px; }
     #forecastStrip .day-card { min-width: 104px; flex-shrink: 0; scroll-snap-align: start; }
   }
-  .spot-btn, .country-btn { min-height: 44px; }
+  .spot-btn, .country-btn, .fin-btn, .scope-btn { min-height: 44px; }
 </style>
 </head>
 <body class="ocean-bg min-h-screen p-4 md:p-8">
@@ -53,8 +53,8 @@
 <div class="max-w-6xl mx-auto">
 
   <div class="text-white mb-6">
-    <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector — Bolso Nicaragua</h1>
-    <p class="text-cyan-100 mt-1">3 tablas · Bolso base Nicaragua · Forecast en vivo 7 días</p>
+    <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector</h1>
+    <p class="text-cyan-100 mt-1">Forecast en vivo 7 días · Bolso Nicaragua o quiver completo</p>
   </div>
 
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
@@ -63,6 +63,15 @@
     <div class="mb-3">
       <label class="block text-sm font-semibold text-slate-700 mb-2">País</label>
       <div id="countryGrid" class="flex flex-wrap gap-2"></div>
+    </div>
+
+    <div class="mb-3">
+      <label class="block text-sm font-semibold text-slate-700 mb-2">Tablas a analizar</label>
+      <div id="scopeGrid" class="flex flex-wrap gap-2">
+        <button class="scope-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-scope="full">🏄 Quiver completo (10)</button>
+        <button class="scope-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-scope="bag">🎒 Bolso Nicaragua (3)</button>
+      </div>
+      <p id="scopeNote" class="text-xs text-slate-500 mt-2"></p>
     </div>
 
     <div class="mb-4">
@@ -126,9 +135,9 @@
     <div class="mt-4 pt-4 border-t border-slate-200">
       <label class="block text-sm font-semibold text-slate-700 mb-2">🐬 Configuración de quillas</label>
       <div id="finModeGrid" class="flex flex-wrap gap-2">
-        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="auto">🤖 Auto (recomendado)</button>
-        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="thruster">Thruster (3)</button>
-        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition min-h-[44px]" data-fin="quad">Quad (4)</button>
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-fin="auto">🤖 Auto (recomendado)</button>
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-fin="thruster">Thruster (3)</button>
+        <button class="fin-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-fin="quad">Quad (4)</button>
       </div>
       <p id="finModeNote" class="text-xs text-slate-500 mt-2"></p>
     </div>
@@ -148,20 +157,21 @@
   </div>
 
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
-    <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 Ranking del bolso</h2>
-    <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100. Solo las 3 tablas del bolso base Nicaragua.</p>
+    <h2 class="text-xl font-bold text-slate-800 mb-1">🏆 <span id="rankTitle">Ranking</span></h2>
+    <p class="text-sm text-slate-500 mb-4">Mejor match arriba. Score 0-100.</p>
     <div id="rankings" class="space-y-3"></div>
   </div>
 
   <div class="text-center text-cyan-100 text-xs mt-8">
-    <p>Bolso Nicaragua · Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
+    <p>Master de tablas v9 · Bolso Nicaragua: Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
     <p class="mt-1">Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
   </div>
 </div>
 
 <script>
-const USER_WEIGHT_LB = 220;
-const USER_WEIGHT = 99.8; // kg (220 lb)
+// ============ CONFIG ============
+const USER_WEIGHT_LB = 215;
+const USER_WEIGHT = 97.5; // kg (215 lb)
 
 const COUNTRIES = {
   do: { label: "🇩🇴 Rep. Dominicana", tz: "America/Santo_Domingo" },
@@ -204,9 +214,72 @@ function externalLinks(spotKey) {
 
 function currentTZ() { return COUNTRIES[state.country].tz; }
 
+// ============ QUIVER COMPLETO (Master v9 — 10 activas; File Fifty vendida) ============
+// bag: true = pertenece al Bolso Nicaragua
 const quiver = [
   {
-    id: 1, name: "Ghost", brand: "Pyzel", role: "DÍA EN FORMA · Step-up, tamaño y tubo",
+    id: 1, name: "FRK + I-BOLIC", brand: "Firewire / Slater Designs", role: "PERFORMANCE · Olas buenas con pared", bag: false,
+    length: 6.17, lengthLabel: "6'2\"", volume: 36.1, tail: "Squash", fins: 5, finType: "thruster",
+    finSystem: "Futures", construction: "I-BOLIC",
+    tags: ["shortboard", "performance", "good-waves", "wall"],
+    note: "Performance shortboard 2-6ft, beachbreak/point con pared. KS1 thruster base.",
+    finSets: {
+      thruster: { name: "Endorfins / Slater Designs KS1 (Large)", config: "Thruster", note: "Base oficial Firewire." },
+      quad:     { name: "Endorfins KS1 (Large) configurado como Quad", config: "Quad", note: "Para olas huecas/rápidas." },
+      stepup:   { name: "Endorfins KSR (Large)", config: "Quad / Thruster", note: "Más drive y arcos largos." }
+    },
+    defaultSetup: "thruster"
+  },
+  {
+    id: 2, name: "Inferno 72", brand: "SharpEye", role: "ALL-ROUND · Step-down small-medium", bag: false,
+    length: 6.33, lengthLabel: "6'4\"", volume: 36.7, tail: "Squash", fins: 5, finType: "thruster",
+    finSystem: "Futures", construction: "EPS/Epoxy",
+    tags: ["shortboard", "performance", "everyday", "small-medium"],
+    note: "All-round performance / step-down small-medium surf.",
+    finSets: {
+      thruster: { name: "Futures SharpEye RTM HEX (Marcio Zouvi) — Large", config: "Thruster", note: "Set oficial del modelo." },
+      quad:     { name: "Futures F8 (Filipe Toledo) — Large", config: "Thruster (alt)", note: "Más responsivo para verticalidad." }
+    },
+    defaultSetup: "thruster"
+  },
+  {
+    id: 3, name: "Mini Ghost", brand: "Pyzel", role: "DAILY · Mini step-up con foam", bag: false,
+    length: 6.17, lengthLabel: "6'2\"", volume: 36.7, tail: "Round", fins: 5, finType: "thruster",
+    finSystem: "Futures", construction: "PU/PE",
+    tags: ["shortboard", "stepup-mini", "daily", "good-waves"],
+    note: "Mini step-up / daily driver con más foam para olas promedio a buenas.",
+    finSets: {
+      thruster: { name: "Futures JJF Techflex Large", config: "Thruster", note: "Set oficial Pyzel." },
+      quad:     { name: "Pyzel Quad — Large", config: "Quad", note: "Para velocidad y hold." }
+    },
+    defaultSetup: "thruster"
+  },
+  {
+    id: 4, name: "Dominator 2.0", brand: "Firewire", role: "EVERYDAY · Rápida y maniobrable", bag: false,
+    length: 6.17, lengthLabel: "6'2\"", volume: 37.81, tail: "Round Squash", fins: 5, finType: "thruster",
+    finSystem: "Futures", construction: "Helium",
+    tags: ["everyday", "fast", "weak-to-good", "maneuverable"],
+    note: "Everyday board rápida y maniobrable. Olas débiles a buenas.",
+    finSets: {
+      thruster: { name: "Firewire Velox 5-Fin (Single Tab) — Large", config: "Thruster", note: "Baseline moderno de Firewire." },
+      quad:     { name: "Firewire Velox configurado como Quad", config: "Quad", note: "Para olas chicas y rápidas." }
+    },
+    defaultSetup: "thruster"
+  },
+  {
+    id: 5, name: "Dark Horse", brand: "AIPA", role: "TUBO / DTL · Quad hueca y rápida", bag: false,
+    length: 6.0, lengthLabel: "6'0\"", volume: 38.18, tail: "Squash", fins: 4, finType: "quad-only",
+    finSystem: "Futures", construction: "Carbon EPS",
+    tags: ["hollow", "fast", "quad", "point-reef"],
+    note: "Olas huecas, rápidas, down-the-line. Twin+trailer en hombro.",
+    finSets: {
+      quad:    { name: "NVS Horsemen Quad — Large", config: "Quad", note: "Recomendación oficial AIPA." },
+      quadAlt: { name: "Futures AIPA x Mayhem 'Torches' Quad — Large", config: "Quad (alt)", note: "Más drive y hold en pared." }
+    },
+    defaultSetup: "quad"
+  },
+  {
+    id: 6, name: "Ghost", brand: "Pyzel", role: "DÍA EN FORMA · Step-up, tamaño y tubo", bag: true,
     length: 6.42, lengthLabel: "6'5\"", volume: 39.2, tail: "Round", fins: 5, finType: "thruster",
     finSystem: "Futures", construction: "PU/PE",
     tags: ["stepup", "solid", "hollow", "reef-point"],
@@ -218,7 +291,20 @@ const quiver = [
     defaultSetup: "thruster"
   },
   {
-    id: 2, name: "Boss Up Volcanic", brand: "Slater Designs", role: "TODO TERRENO · Caballo de batalla diario",
+    id: 7, name: "Boss Up I-Bolic", brand: "Slater Designs", role: "STEP-UP VERSÁTIL · One-board quiver", bag: false,
+    length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
+    finSystem: "Futures", construction: "I-Bolic + Fiberglass",
+    tags: ["stepup", "versatile", "one-board-quiver", "good-waves"],
+    note: "One-board quiver / step-up versátil. KS1 en quad recomendado.",
+    finSets: {
+      quad:     { name: "Endorfins KS1 (Large) configurado como Quad", config: "Quad", note: "Recomendación oficial Firewire." },
+      thruster: { name: "Endorfins KS1 (Large) como Thruster", config: "Thruster", note: "Para pivote y control en secciones cortas." },
+      stepup:   { name: "Endorfins KSR (Large)", config: "Quad", note: "Más hold y arcos largos para olas grandes." }
+    },
+    defaultSetup: "quad"
+  },
+  {
+    id: 8, name: "Boss Up Volcanic", brand: "Slater Designs", role: "TODO TERRENO · Caballo de batalla diario", bag: true,
     length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
     finSystem: "Futures", construction: "I-Bolic + Volcanic",
     tags: ["stepup", "versatile", "one-board-quiver", "responsive"],
@@ -231,7 +317,19 @@ const quiver = [
     defaultSetup: "quad"
   },
   {
-    id: 3, name: "Mindcraft (Midcraft)", brand: "Slater Designs", role: "DÍA FLOJO · Más foam, remada fácil",
+    id: 9, name: "Seaside and Beyond", brand: "Firewire / Slater Designs", role: "GROVEL · Glide para días flojos", bag: false,
+    length: 6.67, lengthLabel: "6'8\"", volume: 40.9, tail: "Double Pin Swallow", fins: 4, finType: "quad-only",
+    finSystem: "Futures", construction: "Helium / LFT",
+    tags: ["midlength", "grovel", "glide", "small-to-solid", "keel"],
+    note: "Fish/mid-length rápido. Glide, velocidad, líneas largas. Small-to-solid surf.",
+    finSets: {
+      quad:    { name: "Futures Machado Seaside Quad — Large", config: "Quad Keel", note: "Set oficial; máximo glide." },
+      quadAlt: { name: "Futures Quad Keel alternativo — Large", config: "Quad (alt)", note: "Más drive y menos pivote." }
+    },
+    defaultSetup: "quad"
+  },
+  {
+    id: 10, name: "Mindcraft (Midcraft)", brand: "Slater Designs", role: "DÍA FLOJO · Más foam, remada fácil", bag: true,
     length: 6.25, lengthLabel: "6'3\"", volume: 41.6, tail: "Round", fins: 5, finType: "quad-thruster",
     finSystem: "Futures", construction: "I-Bolic 2.0",
     tags: ["performance", "speed", "stability", "wide-range", "everyday", "tomo"],
@@ -245,6 +343,11 @@ const quiver = [
   }
 ];
 
+function activeQuiver() {
+  return state.scope === "bag" ? quiver.filter(b => b.bag) : quiver;
+}
+
+// ============ FIN SETUP DECISION ============
 function recommendFinSetup(board, c) {
   const power = c.height * c.height * c.period;
   const sets = board.finSets;
@@ -283,6 +386,7 @@ function finDelta(board, c, setup) {
     if (c.spotType === "beachbreak" && c.spotQuality === "short") { d -= 8; why.push("pierdes pivote en secciones cortas"); }
     if (board.finType === "thruster" && power < 12) { d -= 2; why.push("esta tabla rinde mejor en thruster con poca fuerza"); }
   } else if (setup === "thruster") {
+    if (board.finType === "quad-only") { d -= 10; why.push("esta tabla no tiene setup thruster"); return { d, why }; }
     if (c.spotType === "beachbreak" && c.spotQuality === "short") { d += 6; why.push("pivote y verticalidad en ola corta"); }
     if (power < 12) { d += 2; why.push("más suelta en olas chicas"); }
     if ((c.spotType === "point" || c.spotType === "reef") && c.spotQuality === "long" && power > 18) { d -= 6; why.push("le falta hold/drive para esta pared"); }
@@ -306,6 +410,7 @@ function chooseFinSet(board, c) {
   return rec;
 }
 
+// ============ SCORING ALGORITHM ============
 function scoreBoard(board, c) {
   const power = c.height * c.height * c.period;
   let idealVolume;
@@ -386,6 +491,7 @@ function scoreBoard(board, c) {
   };
 }
 
+// ============ FORECAST (Open-Meteo, próximos 7 días) ============
 const forecastCache = {};
 let currentForecast = null;
 let selectedDayIdx = null;
@@ -558,9 +664,10 @@ async function loadForecast(autoApplyToday) {
   }
 }
 
+// ============ UI ============
 const state = {
   height: 1.8, period: 8, wind: 25, windDir: "crossoff",
-  country: "do", finMode: "auto",
+  country: "do", finMode: "auto", scope: "full",
   spot: "pato", spotType: SPOTS.pato.type, spotQuality: SPOTS.pato.quality
 };
 
@@ -625,7 +732,12 @@ function render() {
   document.getElementById("powerLabel").innerHTML = `<span class="${p.color}">${p.label}</span> <span class="text-sm text-slate-500">(${power.toFixed(0)} kJ proxy)</span>`;
   document.getElementById("dayLabel").textContent = p.day + " · " + getWindStateLabel(state.wind, state.windDir);
 
-  const scored = quiver.map(b => ({ board: b, result: scoreBoard(b, state) }))
+  const boards = activeQuiver();
+  document.getElementById("rankTitle").textContent = state.scope === "bag"
+    ? "Ranking del bolso Nicaragua (3 tablas)"
+    : "Ranking del quiver completo (" + boards.length + " tablas)";
+
+  const scored = boards.map(b => ({ board: b, result: scoreBoard(b, state) }))
     .sort((a, b) => b.result.score - a.result.score);
 
   const html = scored.map((item, i) => {
@@ -659,6 +771,7 @@ function render() {
             <div class="flex items-center gap-2 flex-wrap">
               <span class="text-xs font-bold text-slate-400">#${b.id}</span>
               <h3 class="font-bold text-slate-900">${b.name}</h3>
+              ${b.bag ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">🎒 NICA</span>' : ''}
               ${badge ? `<span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badge.cls}">${badge.txt}</span>` : ''}
             </div>
             <p class="text-xs text-sky-700 font-semibold">${b.role}</p>
@@ -702,6 +815,7 @@ function render() {
   document.getElementById("rankings").innerHTML = html;
 }
 
+// ============ COUNTRY / SCOPE / SPOT BUTTONS ============
 function selectSpot(key) {
   state.spot = key;
   state.spotType = SPOTS[key].type;
@@ -709,6 +823,25 @@ function selectSpot(key) {
   render();
   loadForecast(true);
 }
+
+function paintScopeButtons() {
+  document.querySelectorAll(".scope-btn").forEach(b => {
+    const on = b.dataset.scope === state.scope;
+    b.classList.toggle("bg-indigo-600", on);
+    b.classList.toggle("text-white", on);
+    b.classList.toggle("border-indigo-600", on);
+  });
+  document.getElementById("scopeNote").textContent = state.scope === "bag"
+    ? "Solo Ghost, Boss Up Volcanic y Mindcraft — lo que va en el boardbag a Nicaragua."
+    : "Las 10 tablas activas del Master v9. Al cambiar a 🇳🇮 el análisis pasa solo al bolso automáticamente.";
+}
+document.querySelectorAll(".scope-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    state.scope = btn.dataset.scope;
+    paintScopeButtons();
+    render();
+  });
+});
 
 function buildCountryButtons() {
   const grid = document.getElementById("countryGrid");
@@ -720,9 +853,12 @@ function buildCountryButtons() {
     btn.addEventListener("click", () => {
       if (btn.dataset.country === state.country) return;
       state.country = btn.dataset.country;
+      // Nicaragua → bolso; RD → quiver completo (puedes cambiarlo manualmente después)
+      state.scope = state.country === "ni" ? "bag" : "full";
       const first = Object.keys(SPOTS).find(k => SPOTS[k].country === state.country);
       buildCountryButtons();
       buildSpotButtons();
+      paintScopeButtons();
       selectSpot(first);
     });
   });
@@ -756,8 +892,8 @@ function paintFinButtons() {
   });
   const notes = {
     auto: "El sistema elige el setup por tabla según spot, tamaño y período — y ajusta el score.",
-    thruster: "Forzando thruster en las 3 tablas: gana pivote/verticalidad, pierde hold y drive en paredes largas.",
-    quad: "Forzando quad en las 3 tablas: gana drive, velocidad y hold; pierde pivote en beach breaks cortos."
+    thruster: "Forzando thruster: gana pivote/verticalidad, pierde hold y drive en paredes largas. Las quad-only (Dark Horse, Seaside) quedan penalizadas.",
+    quad: "Forzando quad: gana drive, velocidad y hold; pierde pivote en beach breaks cortos."
   };
   document.getElementById("finModeNote").textContent = notes[state.finMode];
 }
@@ -769,14 +905,17 @@ document.querySelectorAll(".fin-btn").forEach(btn => {
   });
 });
 
+// ============ EVENTS ============
 document.getElementById("height").addEventListener("input", e => { state.height = parseFloat(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("period").addEventListener("input", e => { state.period = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("wind").addEventListener("input", e => { state.wind = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("windDir").addEventListener("change", e => { state.windDir = e.target.value; selectedDayIdx = null; renderForecastStrip(); render(); });
 
+// ============ INIT ============
 document.getElementById("todayStamp").textContent = new Date().toLocaleDateString("es-DO", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "America/Santo_Domingo" });
 buildCountryButtons();
 buildSpotButtons();
+paintScopeButtons();
 paintFinButtons();
 render();
 loadForecast(true);
