@@ -196,15 +196,17 @@ const SPOTS = {
   popoyo:       { country: "ni", label: "Popoyo",        lat: 11.4487, lon: -86.1027, facing: 245, type: "reef",       quality: "long"   }
 };
 
+// Slugs verificados contra surf-forecast.com el 2026-07-24 (sesión del usuario)
 const SF_SLUGS = {
-  encuentro: "Playa-Encuentro", macao: "Macao", playagrande: "Playa-Grande",
-  popoyo: "Popoyo", colorado: "Playa-Colorado", pangadrops: "Panga-Drops",
-  lancesleft: "Lances-Left", playgrounds: "Playgrounds"
+  pato: "Los-Patos", encuentro: "Encuentro", macao: "Playadel-Macao",
+  playagrande: "Playa-Grande_2", lapreciosa: "La-Preciosa", coson: "Elcoson",
+  laboya: "La-Boya_2", puntaparaiso: "Punta-Paraiso", bahoruco: "Baorvco",
+  popoyo: "Popoyo", colorado: "Colorado", lancesleft: "El-Astillero"
 };
 
 function externalLinks(spotKey) {
   const s = SPOTS[spotKey];
-  const sfCountry = s.country === "do" ? "Dominican-Rep" : "Nicaragua";
+  const sfCountry = s.country === "do" ? "Dominican-Republic" : "Nicaragua";
   const sf = SF_SLUGS[spotKey]
     ? `https://www.surf-forecast.com/breaks/${SF_SLUGS[spotKey]}/forecasts/latest`
     : `https://www.surf-forecast.com/countries/${sfCountry}/breaks`;
@@ -864,11 +866,27 @@ function buildCountryButtons() {
   });
 }
 
+// Fuerza viva por playa (Open-Meteo, hoy 7:00 AM) pintada en cada botón de spot
+async function paintSpotEnergy() {
+  const keys = Object.keys(SPOTS).filter(k => SPOTS[k].country === state.country);
+  keys.forEach(async k => {
+    try {
+      const days = await fetchForecast(k);
+      const d = days[0];
+      if (!d) return;
+      const power = d.height * d.height * d.period;
+      const pw = getPowerLabel(power);
+      const el = document.querySelector(`[data-energy="${k}"]`);
+      if (el) el.innerHTML = `<span class="${pw.color}">⚡ ${pw.label} · ${power.toFixed(0)}</span>`;
+    } catch (e) { /* sin red: el botón queda sin badge */ }
+  });
+}
+
 function buildSpotButtons() {
   const grid = document.getElementById("spotGrid");
   const spots = Object.entries(SPOTS).filter(([, s]) => s.country === state.country);
   grid.innerHTML = spots.map(([key, s]) =>
-    `<button class="spot-btn px-3 py-2 rounded-lg text-sm font-medium border-2 border-sky-200 hover:border-sky-500 transition" data-spot="${key}">${s.label}</button>`
+    `<button class="spot-btn px-3 py-2 rounded-lg text-sm font-medium border-2 border-sky-200 hover:border-sky-500 transition" data-spot="${key}">${s.label}<span class="block text-[10px] font-semibold mt-0.5 bg-white/80 rounded px-1" data-energy="${key}"></span></button>`
   ).join('');
 
   grid.querySelectorAll(".spot-btn").forEach(btn => {
@@ -881,6 +899,8 @@ function buildSpotButtons() {
 
   const active = grid.querySelector(`[data-spot="${state.spot}"]`) || grid.querySelector(".spot-btn");
   if (active) active.classList.add("bg-sky-500", "text-white", "border-sky-500");
+
+  paintSpotEnergy();
 }
 
 function paintFinButtons() {
