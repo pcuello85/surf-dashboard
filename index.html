@@ -10,7 +10,256 @@
 <meta name="apple-mobile-web-app-title" content="Quiver">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230284c7'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E">
 <title>Quiver Selector</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<!-- Tailwind compilado e incrustado (sin dependencia de CDN) -->
+<style>*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }
+::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }
+/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}
+:after,:before{--tw-content:""}
+:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}
+body{margin:0;line-height:inherit}
+hr{height:0;color:inherit;border-top-width:1px}
+abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}
+a{color:inherit;text-decoration:inherit}
+b,strong{font-weight:bolder}
+code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sub{bottom:-.25em}
+sup{top:-.5em}
+table{text-indent:0;border-color:inherit;border-collapse:collapse}
+button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}
+button,select{text-transform:none}
+button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}
+:-moz-focusring{outline:auto}
+:-moz-ui-invalid{box-shadow:none}
+progress{vertical-align:baseline}
+::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}
+[type=search]{-webkit-appearance:textfield;outline-offset:-2px}
+::-webkit-search-decoration{-webkit-appearance:none}
+::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}
+summary{display:list-item}
+blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}
+fieldset{margin:0}
+fieldset,legend{padding:0}
+menu,ol,ul{list-style:none;margin:0;padding:0}
+dialog{padding:0}
+textarea{resize:vertical}
+input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}
+input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}
+[role=button],button{cursor:pointer}
+:disabled{cursor:default}
+audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}
+img,video{max-width:100%;height:auto}
+[hidden]:where(:not([hidden=until-found])){display:none}
+.visible{visibility:visible}
+.col-span-full{grid-column:1/-1}
+.mx-auto{margin-left:auto;margin-right:auto}
+.mb-1{margin-bottom:.25rem}
+.mb-2{margin-bottom:.5rem}
+.mb-3{margin-bottom:.75rem}
+.mb-4{margin-bottom:1rem}
+.mb-5{margin-bottom:1.25rem}
+.mb-6{margin-bottom:1.5rem}
+.ml-1{margin-left:.25rem}
+.mt-0\.5{margin-top:.125rem}
+.mt-1{margin-top:.25rem}
+.mt-1\.5{margin-top:.375rem}
+.mt-2{margin-top:.5rem}
+.mt-4{margin-top:1rem}
+.mt-8{margin-top:2rem}
+.block{display:block}
+.inline-block{display:inline-block}
+.flex{display:flex}
+.inline-flex{display:inline-flex}
+.grid{display:grid}
+.h-1\.5{height:.375rem}
+.h-2{height:.5rem}
+.h-3{height:.75rem}
+.min-h-\[44px\]{min-height:44px}
+.min-h-screen{min-height:100vh}
+.w-12{width:3rem}
+.w-16{width:4rem}
+.w-3{width:.75rem}
+.w-40{width:10rem}
+.w-full{width:100%}
+.min-w-0{min-width:0}
+.max-w-6xl{max-width:72rem}
+.flex-1{flex:1 1 0%}
+.flex-shrink{flex-shrink:1}
+.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}
+@keyframes pulse{50%{opacity:.5}
+}
+.animate-pulse{animation:pulse 2s cubic-bezier(.4,0,.6,1) infinite}
+.grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.flex-wrap{flex-wrap:wrap}
+.items-start{align-items:flex-start}
+.items-center{align-items:center}
+.justify-between{justify-content:space-between}
+.gap-1{gap:.25rem}
+.gap-2{gap:.5rem}
+.gap-3{gap:.75rem}
+.gap-6{gap:1.5rem}
+.gap-x-3{-moz-column-gap:.75rem;column-gap:.75rem}
+.gap-y-1{row-gap:.25rem}
+.space-y-1>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.25rem*var(--tw-space-y-reverse))}
+.space-y-3>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.75rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.75rem*var(--tw-space-y-reverse))}
+.overflow-hidden{overflow:hidden}
+.rounded{border-radius:.25rem}
+.rounded-2xl{border-radius:1rem}
+.rounded-full{border-radius:9999px}
+.rounded-lg{border-radius:.5rem}
+.rounded-sm{border-radius:.125rem}
+.rounded-xl{border-radius:.75rem}
+.border{border-width:1px}
+.border-2{border-width:2px}
+.border-t{border-top-width:1px}
+.border-dashed{border-style:dashed}
+.border-amber-500{--tw-border-opacity:1;border-color:rgb(245 158 11/var(--tw-border-opacity,1))}
+.border-emerald-300{--tw-border-opacity:1;border-color:rgb(110 231 183/var(--tw-border-opacity,1))}
+.border-emerald-400{--tw-border-opacity:1;border-color:rgb(52 211 153/var(--tw-border-opacity,1))}
+.border-emerald-600{--tw-border-opacity:1;border-color:rgb(5 150 105/var(--tw-border-opacity,1))}
+.border-emerald-700{--tw-border-opacity:1;border-color:rgb(4 120 87/var(--tw-border-opacity,1))}
+.border-lime-500{--tw-border-opacity:1;border-color:rgb(132 204 22/var(--tw-border-opacity,1))}
+.border-orange-600{--tw-border-opacity:1;border-color:rgb(234 88 12/var(--tw-border-opacity,1))}
+.border-purple-700{--tw-border-opacity:1;border-color:rgb(126 34 206/var(--tw-border-opacity,1))}
+.border-rose-200{--tw-border-opacity:1;border-color:rgb(254 205 211/var(--tw-border-opacity,1))}
+.border-rose-600{--tw-border-opacity:1;border-color:rgb(225 29 72/var(--tw-border-opacity,1))}
+.border-sky-200{--tw-border-opacity:1;border-color:rgb(186 230 253/var(--tw-border-opacity,1))}
+.border-sky-300{--tw-border-opacity:1;border-color:rgb(125 211 252/var(--tw-border-opacity,1))}
+.border-sky-500{--tw-border-opacity:1;border-color:rgb(14 165 233/var(--tw-border-opacity,1))}
+.border-sky-600{--tw-border-opacity:1;border-color:rgb(2 132 199/var(--tw-border-opacity,1))}
+.border-slate-100{--tw-border-opacity:1;border-color:rgb(241 245 249/var(--tw-border-opacity,1))}
+.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}
+.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}
+.bg-amber-100{--tw-bg-opacity:1;background-color:rgb(254 243 199/var(--tw-bg-opacity,1))}
+.bg-amber-400{--tw-bg-opacity:1;background-color:rgb(251 191 36/var(--tw-bg-opacity,1))}
+.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}
+.bg-amber-500{--tw-bg-opacity:1;background-color:rgb(245 158 11/var(--tw-bg-opacity,1))}
+.bg-blue-100{--tw-bg-opacity:1;background-color:rgb(219 234 254/var(--tw-bg-opacity,1))}
+.bg-cyan-100{--tw-bg-opacity:1;background-color:rgb(207 250 254/var(--tw-bg-opacity,1))}
+.bg-emerald-100{--tw-bg-opacity:1;background-color:rgb(209 250 229/var(--tw-bg-opacity,1))}
+.bg-emerald-200{--tw-bg-opacity:1;background-color:rgb(167 243 208/var(--tw-bg-opacity,1))}
+.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}
+.bg-emerald-500{--tw-bg-opacity:1;background-color:rgb(16 185 129/var(--tw-bg-opacity,1))}
+.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105/var(--tw-bg-opacity,1))}
+.bg-lime-100{--tw-bg-opacity:1;background-color:rgb(236 252 203/var(--tw-bg-opacity,1))}
+.bg-lime-400{--tw-bg-opacity:1;background-color:rgb(163 230 53/var(--tw-bg-opacity,1))}
+.bg-orange-100{--tw-bg-opacity:1;background-color:rgb(255 237 213/var(--tw-bg-opacity,1))}
+.bg-orange-500{--tw-bg-opacity:1;background-color:rgb(249 115 22/var(--tw-bg-opacity,1))}
+.bg-purple-100{--tw-bg-opacity:1;background-color:rgb(243 232 255/var(--tw-bg-opacity,1))}
+.bg-purple-600{--tw-bg-opacity:1;background-color:rgb(147 51 234/var(--tw-bg-opacity,1))}
+.bg-rose-100{--tw-bg-opacity:1;background-color:rgb(255 228 230/var(--tw-bg-opacity,1))}
+.bg-rose-50{--tw-bg-opacity:1;background-color:rgb(255 241 242/var(--tw-bg-opacity,1))}
+.bg-rose-500{--tw-bg-opacity:1;background-color:rgb(244 63 94/var(--tw-bg-opacity,1))}
+.bg-sky-100{--tw-bg-opacity:1;background-color:rgb(224 242 254/var(--tw-bg-opacity,1))}
+.bg-sky-50{--tw-bg-opacity:1;background-color:rgb(240 249 255/var(--tw-bg-opacity,1))}
+.bg-sky-500{--tw-bg-opacity:1;background-color:rgb(14 165 233/var(--tw-bg-opacity,1))}
+.bg-sky-600{--tw-bg-opacity:1;background-color:rgb(2 132 199/var(--tw-bg-opacity,1))}
+.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}
+.bg-slate-200{--tw-bg-opacity:1;background-color:rgb(226 232 240/var(--tw-bg-opacity,1))}
+.bg-slate-50{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}
+.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59/var(--tw-bg-opacity,1))}
+.bg-transparent{background-color:transparent}
+.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}
+.bg-white\/80{background-color:hsla(0,0%,100%,.8)}
+.bg-yellow-100{--tw-bg-opacity:1;background-color:rgb(254 249 195/var(--tw-bg-opacity,1))}
+.p-2{padding:.5rem}
+.p-2\.5{padding:.625rem}
+.p-4{padding:1rem}
+.p-6{padding:1.5rem}
+.px-1{padding-left:.25rem;padding-right:.25rem}
+.px-1\.5{padding-left:.375rem;padding-right:.375rem}
+.px-2{padding-left:.5rem;padding-right:.5rem}
+.px-3{padding-left:.75rem;padding-right:.75rem}
+.px-4{padding-left:1rem;padding-right:1rem}
+.px-5{padding-left:1.25rem;padding-right:1.25rem}
+.py-0\.5{padding-top:.125rem;padding-bottom:.125rem}
+.py-2{padding-top:.5rem;padding-bottom:.5rem}
+.py-3{padding-top:.75rem;padding-bottom:.75rem}
+.pb-1{padding-bottom:.25rem}
+.pt-2{padding-top:.5rem}
+.pt-4{padding-top:1rem}
+.text-center{text-align:center}
+.text-right{text-align:right}
+.text-2xl{font-size:1.5rem;line-height:2rem}
+.text-3xl{font-size:1.875rem;line-height:2.25rem}
+.text-\[10px\]{font-size:10px}
+.text-\[11px\]{font-size:11px}
+.text-\[9px\]{font-size:9px}
+.text-base{font-size:1rem;line-height:1.5rem}
+.text-lg{font-size:1.125rem;line-height:1.75rem}
+.text-sm{font-size:.875rem;line-height:1.25rem}
+.text-xl{font-size:1.25rem;line-height:1.75rem}
+.text-xs{font-size:.75rem;line-height:1rem}
+.font-bold{font-weight:700}
+.font-extrabold{font-weight:800}
+.font-medium{font-weight:500}
+.font-semibold{font-weight:600}
+.uppercase{text-transform:uppercase}
+.normal-case{text-transform:none}
+.italic{font-style:italic}
+.leading-none{line-height:1}
+.tracking-wide{letter-spacing:.025em}
+.text-amber-600{--tw-text-opacity:1;color:rgb(217 119 6/var(--tw-text-opacity,1))}
+.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}
+.text-amber-800{--tw-text-opacity:1;color:rgb(146 64 14/var(--tw-text-opacity,1))}
+.text-blue-700{--tw-text-opacity:1;color:rgb(29 78 216/var(--tw-text-opacity,1))}
+.text-blue-800{--tw-text-opacity:1;color:rgb(30 64 175/var(--tw-text-opacity,1))}
+.text-cyan-100{--tw-text-opacity:1;color:rgb(207 250 254/var(--tw-text-opacity,1))}
+.text-cyan-800{--tw-text-opacity:1;color:rgb(21 94 117/var(--tw-text-opacity,1))}
+.text-emerald-600{--tw-text-opacity:1;color:rgb(5 150 105/var(--tw-text-opacity,1))}
+.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}
+.text-emerald-800{--tw-text-opacity:1;color:rgb(6 95 70/var(--tw-text-opacity,1))}
+.text-indigo-400{--tw-text-opacity:1;color:rgb(129 140 248/var(--tw-text-opacity,1))}
+.text-lime-700{--tw-text-opacity:1;color:rgb(77 124 15/var(--tw-text-opacity,1))}
+.text-orange-700{--tw-text-opacity:1;color:rgb(194 65 12/var(--tw-text-opacity,1))}
+.text-orange-800{--tw-text-opacity:1;color:rgb(154 52 18/var(--tw-text-opacity,1))}
+.text-purple-700{--tw-text-opacity:1;color:rgb(126 34 206/var(--tw-text-opacity,1))}
+.text-purple-800{--tw-text-opacity:1;color:rgb(107 33 168/var(--tw-text-opacity,1))}
+.text-rose-500{--tw-text-opacity:1;color:rgb(244 63 94/var(--tw-text-opacity,1))}
+.text-rose-600{--tw-text-opacity:1;color:rgb(225 29 72/var(--tw-text-opacity,1))}
+.text-rose-700{--tw-text-opacity:1;color:rgb(190 18 60/var(--tw-text-opacity,1))}
+.text-rose-800{--tw-text-opacity:1;color:rgb(159 18 57/var(--tw-text-opacity,1))}
+.text-sky-600{--tw-text-opacity:1;color:rgb(2 132 199/var(--tw-text-opacity,1))}
+.text-sky-700{--tw-text-opacity:1;color:rgb(3 105 161/var(--tw-text-opacity,1))}
+.text-sky-800{--tw-text-opacity:1;color:rgb(7 89 133/var(--tw-text-opacity,1))}
+.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225/var(--tw-text-opacity,1))}
+.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}
+.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}
+.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}
+.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}
+.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}
+.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}
+.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}
+.text-yellow-600{--tw-text-opacity:1;color:rgb(202 138 4/var(--tw-text-opacity,1))}
+.text-yellow-700{--tw-text-opacity:1;color:rgb(161 98 7/var(--tw-text-opacity,1))}
+.underline{text-decoration-line:underline}
+.opacity-60{opacity:.6}
+.opacity-70{opacity:.7}
+.shadow-2xl{--tw-shadow:0 25px 50px -12px rgba(0,0,0,.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color)}
+.shadow-2xl,.shadow-xl{box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}
+.shadow-xl{--tw-shadow:0 20px 25px -5px rgba(0,0,0,.1),0 8px 10px -6px rgba(0,0,0,.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color),0 8px 10px -6px var(--tw-shadow-color)}
+.outline-none{outline:2px solid transparent;outline-offset:2px}
+.outline{outline-style:solid}
+.ring-2{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}
+.ring-amber-400{--tw-ring-opacity:1;--tw-ring-color:rgb(251 191 36/var(--tw-ring-opacity,1))}
+.ring-sky-300{--tw-ring-opacity:1;--tw-ring-color:rgb(125 211 252/var(--tw-ring-opacity,1))}
+.ring-offset-1{--tw-ring-offset-width:1px}
+.blur{--tw-blur:blur(8px)}
+.blur,.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}
+.backdrop-filter{-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}
+.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}
+.hover\:border-sky-400:hover{--tw-border-opacity:1;border-color:rgb(56 189 248/var(--tw-border-opacity,1))}
+.hover\:border-sky-500:hover{--tw-border-opacity:1;border-color:rgb(14 165 233/var(--tw-border-opacity,1))}
+.hover\:bg-amber-600:hover{--tw-bg-opacity:1;background-color:rgb(217 119 6/var(--tw-bg-opacity,1))}
+.hover\:bg-sky-50:hover{--tw-bg-opacity:1;background-color:rgb(240 249 255/var(--tw-bg-opacity,1))}
+@media (min-width:768px){.md\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.md\:grid-cols-5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.md\:p-8{padding:2rem}
+.md\:text-4xl{font-size:2.25rem;line-height:2.5rem}
+}
+</style>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
   .ocean-bg {
@@ -41,10 +290,10 @@
   .score-bar { transition: width 0.5s ease; }
   .day-card { transition: all 0.2s ease; cursor: pointer; }
   .day-card:hover { transform: translateY(-2px); }
-  @media (max-width: 767px) {
-    #forecastStrip { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 4px; }
-    #forecastStrip .day-card { min-width: 104px; flex-shrink: 0; scroll-snap-align: start; }
-  }
+  #forecastStrip { display: flex; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x mandatory; padding-bottom: 6px; gap: 8px; }
+  #forecastStrip .day-card { min-width: 104px; flex-shrink: 0; scroll-snap-align: start; }
+  #forecastStrip::-webkit-scrollbar { height: 8px; }
+  #forecastStrip::-webkit-scrollbar-thumb { background: #bae6fd; border-radius: 4px; }
   .spot-btn, .country-btn, .fin-btn, .scope-btn { min-height: 44px; }
 </style>
 </head>
@@ -54,7 +303,7 @@
 
   <div class="text-white mb-6">
     <h1 class="text-3xl md:text-4xl font-bold">🏄 Quiver Selector</h1>
-    <p class="text-cyan-100 mt-1">Forecast en vivo 7 días · Bolso Nicaragua o quiver completo</p>
+    <p class="text-cyan-100 mt-1">Forecast en vivo 16 días · Quiver completo, 10 tablas activas</p>
   </div>
 
   <div class="glass rounded-2xl p-6 mb-6 shadow-2xl">
@@ -66,26 +315,42 @@
     </div>
 
     <div class="mb-3">
-      <label class="block text-sm font-semibold text-slate-700 mb-2">Tablas a analizar</label>
-      <div id="scopeGrid" class="flex flex-wrap gap-2">
-        <button class="scope-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-scope="full">🏄 Quiver completo (10)</button>
-        <button class="scope-btn px-4 py-2 rounded-lg text-sm font-semibold border-2 border-sky-200 hover:border-sky-500 transition" data-scope="bag">🎒 Bolso Nicaragua (3)</button>
+      <label class="block text-sm font-semibold text-slate-700 mb-2">⚖️ Tu peso</label>
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="weightMinus" class="min-h-[44px] w-12 rounded-lg text-lg font-bold border-2 border-sky-200 hover:border-sky-500 hover:bg-sky-50 transition" title="-1 lb">−</button>
+        <div class="flex items-center gap-1 border-2 border-sky-200 rounded-lg px-3 min-h-[44px] bg-white">
+          <input type="number" id="weightInput" min="140" max="300" step="1" inputmode="numeric" class="w-16 text-center text-lg font-bold text-sky-700 outline-none bg-transparent">
+          <span class="text-sm font-semibold text-slate-500">lb</span>
+        </div>
+        <button id="weightPlus" class="min-h-[44px] w-12 rounded-lg text-lg font-bold border-2 border-sky-200 hover:border-sky-500 hover:bg-sky-50 transition" title="+1 lb">+</button>
+        <button id="weightUpdate" class="min-h-[44px] px-5 rounded-lg text-sm font-bold border-2 transition">Actualizar</button>
+        <button id="weightReset" class="min-h-[44px] px-3 rounded-lg text-xs font-semibold border-2 border-slate-200 text-slate-500 hover:border-sky-500 transition" title="Volver a 215 lb">↺ 215</button>
       </div>
-      <p id="scopeNote" class="text-xs text-slate-500 mt-2"></p>
+      <p id="weightNote" class="text-xs text-slate-500 mt-2"></p>
     </div>
 
     <div class="mb-4">
       <label class="block text-sm font-semibold text-slate-700 mb-2">Spot</label>
       <div id="spotGrid" class="grid grid-cols-2 md:grid-cols-5 gap-2"></div>
+      <p id="bestSpotNote" class="text-xs text-slate-600 mt-2 font-medium"></p>
     </div>
 
     <div class="mb-5 pt-4 border-t border-slate-200">
       <div class="flex items-center justify-between mb-2">
-        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">📅 Próximos 7 días — <span id="forecastSpotName"></span></p>
+        <p class="text-xs text-slate-500 font-semibold uppercase tracking-wide">📅 Próximos 16 días — <span id="forecastSpotName"></span> <span id="calBadge" class="text-[10px] normal-case font-semibold px-1.5 py-0.5 rounded ml-1"></span></p>
         <p id="forecastStatus" class="text-xs text-slate-400"></p>
       </div>
-      <div id="forecastStrip" class="grid md:grid-cols-7 gap-2"></div>
-      <p class="text-[11px] text-slate-400 mt-2">Valores de la sesión de la mañana (7:00 AM). Clic en un día para cargarlo en los sliders. ⭐ = mejor día de la semana en este spot. Fuente: Open-Meteo (marine + wind), se actualiza solo cada vez que abres la página.</p>
+      <div id="ratingLegend" class="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2 text-[10px] font-semibold"></div>
+      <div id="forecastStrip" class="pb-1"></div>
+      <p class="text-[11px] text-slate-400 mt-2">Altura = <b>cara de ola estimada en pies</b> (swell + período + exposición por spot, anclada a Surfline el 18-oct-2026). 🌊 = swell (pies, metros y segundos — los metros son comparables con la columna de Surf-Forecast). ⚡ = energía ≈ escala kJ de Surf-Forecast. 💨 = viento en nudos. Desliza → para 16 días. ⭐ = mejor día. ⚠️ El modelo de olas llega a ~10 días: más allá verás "s/d" (sin dato) en vez de un falso flat — el dato aparece solo al acercarse la fecha. Los días 16 de Surf-Forecast salen de su modelo propio de largo alcance (baja confianza declarada por ellos mismos). Fuente: Open-Meteo; refresco automático cada 6 h (4×/día).</p>
+      <p id="calStatus" class="text-[11px] text-slate-500 mt-1"></p>
+      <p class="text-[11px] text-slate-500 mt-1">
+        <span class="font-semibold">SwellCloud API</span> (opcional — llena los días "s/d"):
+        <input id="scKey" type="password" placeholder="pega tu X-API-Key" class="border border-slate-300 rounded px-1 py-0.5 text-[11px] w-40">
+        <button id="scSave" class="px-2 py-0.5 rounded border border-sky-300 text-sky-700 font-semibold hover:bg-sky-50">Guardar y probar</button>
+        <span id="scStatus" class="text-slate-400"></span> ·
+        <a href="https://swellcloud.net/api/" target="_blank" rel="noopener" class="underline text-sky-600">obtener clave</a>
+      </p>
       <p id="extLinks" class="text-[11px] text-slate-500 mt-1"></p>
     </div>
 
@@ -163,15 +428,74 @@
   </div>
 
   <div class="text-center text-cyan-100 text-xs mt-8">
-    <p>Master de tablas v9 · Bolso Nicaragua: Ghost 6'5" + Boss Up Volcanic 6'6" + Mindcraft 6'3"</p>
-    <p class="mt-1">Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 7 días</p>
+    <p>Master de tablas v10 · 10 tablas activas (+ Seaside 6'0 Full Carbon sep-2026 · Boss Up I-Bolic vendida)</p>
+    <p class="mt-1" id="weightFoot">Peso configurado: 215 lb (editable arriba)</p>
+    <p class="mt-1">Fechas y forecast: <span id="todayStamp">—</span>, siempre los próximos 16 días · <span id="dataStamp">—</span></p>
   </div>
 </div>
 
 <script>
 // ============ CONFIG ============
-const USER_WEIGHT_LB = 215;
-const USER_WEIGHT = 97.5; // kg (215 lb)
+const DEFAULT_WEIGHT_LB = 215;
+let USER_WEIGHT_LB = DEFAULT_WEIGHT_LB;
+try {
+  const saved = parseFloat(localStorage.getItem("pabloWeightLb"));
+  if (saved >= 140 && saved <= 300) USER_WEIGHT_LB = saved;
+} catch (e) { /* sin localStorage */ }
+let USER_WEIGHT = USER_WEIGHT_LB * 0.453592; // kg
+
+// Aplica el peso: recalcula todo y lo guarda. Se llama SOLO al pulsar Actualizar / ↺ 215.
+function setWeightLb(lb) {
+  lb = Math.min(300, Math.max(140, Math.round(lb)));
+  USER_WEIGHT_LB = lb;
+  USER_WEIGHT = lb * 0.453592;
+  try { localStorage.setItem("pabloWeightLb", String(lb)); } catch (e) {}
+  const inp = document.getElementById("weightInput");
+  if (inp) inp.value = lb;
+  paintWeight();
+  render();
+  refreshWeightPending();
+}
+
+// Cambia solo el número del input (pendiente), sin recalcular todavía.
+function nudgeWeightInput(delta) {
+  const inp = document.getElementById("weightInput");
+  if (!inp) return;
+  let v = parseInt(inp.value, 10);
+  if (isNaN(v)) v = USER_WEIGHT_LB;
+  inp.value = Math.min(300, Math.max(140, v + delta));
+  refreshWeightPending();
+}
+
+// Aplica lo que esté escrito en el input.
+function applyWeightFromInput() {
+  const inp = document.getElementById("weightInput");
+  const v = parseFloat(inp ? inp.value : NaN);
+  if (!isNaN(v)) setWeightLb(v);
+  else { inp.value = USER_WEIGHT_LB; refreshWeightPending(); }
+}
+
+// Pinta el botón Actualizar según si hay cambios sin aplicar.
+function refreshWeightPending() {
+  const btn = document.getElementById("weightUpdate");
+  const inp = document.getElementById("weightInput");
+  if (!btn || !inp) return;
+  const v = parseInt(inp.value, 10);
+  const pending = !isNaN(v) && v !== USER_WEIGHT_LB;
+  const on  = ["bg-amber-500","text-white","border-amber-500","hover:bg-amber-600","animate-pulse"];
+  const off = ["bg-emerald-600","text-white","border-emerald-600"];
+  btn.classList.remove(...on, ...off);
+  if (pending) { btn.classList.add(...on); btn.textContent = "Actualizar → " + v + " lb"; }
+  else { btn.classList.add(...off); btn.textContent = "✓ Aplicado · " + USER_WEIGHT_LB + " lb"; }
+}
+
+function paintWeight() {
+  const kg = USER_WEIGHT.toFixed(1);
+  const note = document.getElementById("weightNote");
+  if (note) note.textContent = `Peso aplicado: ${USER_WEIGHT_LB} lb (${kg} kg). Escribe o usa −/+ y pulsa Actualizar para recalcular ranking, volúmenes y quillas. Se guarda en este navegador.`;
+  const foot = document.getElementById("weightFoot");
+  if (foot) foot.textContent = `Peso configurado: ${USER_WEIGHT_LB} lb (${kg} kg) · editable arriba`;
+}
 
 const COUNTRIES = {
   do: { label: "🇩🇴 Rep. Dominicana", tz: "America/Santo_Domingo" },
@@ -179,37 +503,38 @@ const COUNTRIES = {
 };
 
 const SPOTS = {
-  pato:         { country: "do", label: "Pato Beach",    lat: 17.9585, lon: -71.1831, facing: 150, type: "beachbreak", quality: "short"  },
-  encuentro:    { country: "do", label: "Encuentro",     lat: 19.7783, lon: -70.4544, facing: 10,  type: "reef",       quality: "long"   },
-  macao:        { country: "do", label: "Macao",         lat: 18.7669, lon: -68.5486, facing: 55,  type: "beachbreak", quality: "medium" },
-  laboya:       { country: "do", label: "La Boya",       lat: 18.4590, lon: -69.9080, facing: 170, type: "reef",       quality: "medium" },
-  playagrande:  { country: "do", label: "Playa Grande",  lat: 19.6689, lon: -69.8975, facing: 10,  type: "beachbreak", quality: "medium" },
-  puntaparaiso: { country: "do", label: "Punta Paraíso", lat: 17.9866, lon: -71.1568, facing: 140, type: "point",      quality: "long"   },
-  coson:        { country: "do", label: "Cosón",         lat: 19.3242, lon: -69.6110, facing: 335, type: "beachbreak", quality: "medium" },
-  nagua:        { country: "do", label: "Nagua",         lat: 19.3960, lon: -69.8330, facing: 45,  type: "beachbreak", quality: "medium" },
-  lapreciosa:   { country: "do", label: "La Preciosa",   lat: 19.6706, lon: -69.9106, facing: 5,   type: "reef",       quality: "long"   },
-  bahoruco:     { country: "do", label: "Bahoruco",      lat: 18.0805, lon: -71.0937, facing: 110, type: "point",      quality: "long"   },
-  colorado:     { country: "ni", label: "Colorado",      lat: 11.4800, lon: -86.0780, facing: 235, type: "beachbreak", quality: "medium" },
-  pangadrops:   { country: "ni", label: "Panga Drops",   lat: 11.4860, lon: -86.0800, facing: 240, type: "reef",       quality: "medium" },
-  lancesleft:   { country: "ni", label: "Lance's Left",  lat: 11.4280, lon: -86.1130, facing: 230, type: "reef",       quality: "long"   },
-  playgrounds:  { country: "ni", label: "Playgrounds",   lat: 11.4550, lon: -86.1050, facing: 245, type: "reef",       quality: "long"   },
-  popoyo:       { country: "ni", label: "Popoyo",        lat: 11.4487, lon: -86.1027, facing: 245, type: "reef",       quality: "long"   },
-  santana:      { country: "ni", label: "Santana",       lat: 11.4600, lon: -86.1000, facing: 245, type: "beachbreak", quality: "medium" },
-  manzanillo:   { country: "ni", label: "Manzanillo",    lat: 11.5060, lon: -86.1610, facing: 240, type: "point",      quality: "long"   }
+  pato:         { country: "do", label: "Pato Beach",    lat: 17.9585, lon: -71.1831, facing: 150, type: "beachbreak", quality: "short", exp: 0.90, expCal: "surfline"  },
+  encuentro:    { country: "do", label: "Encuentro",     lat: 19.7783, lon: -70.4544, facing: 10,  type: "reef",       quality: "long", exp: 0.58, expCal: "surfline"   },
+  elcanal:      { country: "do", label: "El Canal",      lat: 19.7580, lon: -70.4350, facing: 15,  type: "reef",       quality: "medium", exp: 0.63, expCal: "surfline" },
+  macao:        { country: "do", label: "Macao",         lat: 18.7669, lon: -68.5486, facing: 55,  type: "beachbreak", quality: "medium", exp: 0.83, expCal: "surfline" },
+  laboya:       { country: "do", label: "La Boya",       lat: 18.4590, lon: -69.9080, facing: 170, type: "reef",       quality: "medium", exp: 1.05, expCal: "surfline" },
+  playagrande:  { country: "do", label: "Playa Grande",  lat: 19.6689, lon: -69.8975, facing: 10,  type: "beachbreak", quality: "medium", exp: 0.68, expCal: "est" },
+  puntaparaiso: { country: "do", label: "Punta Paraíso", lat: 18.8400, lon: -68.6100, facing: 50,  type: "reef",       quality: "medium", exp: 0.83, expCal: "est" }, // costa este (Uvero Alto) — SF 18.84N 68.61W
+  coson:        { country: "do", label: "Cosón",         lat: 19.3242, lon: -69.6110, facing: 335, type: "beachbreak", quality: "medium", exp: 1.20, expCal: "surfline" },
+  nagua:        { country: "do", label: "Nagua",         lat: 19.3960, lon: -69.8330, facing: 45,  type: "beachbreak", quality: "medium", exp: 0.68, expCal: "est" },
+  lapreciosa:   { country: "do", label: "La Preciosa",   lat: 19.6706, lon: -69.9106, facing: 5,   type: "reef",       quality: "long", exp: 0.68, expCal: "surfline"   },
+  bahoruco:     { country: "do", label: "Bahoruco",      lat: 18.0805, lon: -71.0937, facing: 110, type: "point",      quality: "long", exp: 0.95, expCal: "est"   },
+  colorado:     { country: "ni", label: "Colorado",      lat: 11.4130, lon: -86.0480, facing: 235, type: "beachbreak", quality: "medium", exp: 0.90, expCal: "surfline" }, // Hacienda Iguana
+  pangadrops:   { country: "ni", label: "Panga Drops",   lat: 11.4190, lon: -86.0530, facing: 240, type: "reef",       quality: "medium", exp: 1.19, expCal: "surfline" }, // junto a Colorado
+  lancesleft:   { country: "ni", label: "Lance's Left",  lat: 11.4280, lon: -86.1130, facing: 230, type: "reef",       quality: "long", exp: 1.01, expCal: "surfline" }, // estimado (sin ref. Surfline)
+  playgrounds:  { country: "ni", label: "Playgrounds",   lat: 11.4550, lon: -86.1050, facing: 245, type: "reef",       quality: "long", exp: 0.85, expCal: "est" }, // estimado (sin ref. Surfline)
+  popoyo:       { country: "ni", label: "Popoyo",        lat: 11.4487, lon: -86.1027, facing: 245, type: "reef",       quality: "long", exp: 0.72, expCal: "surfline" }, // Surfline hoy 3-4ft+ (Outer Reef)
+  santana:      { country: "ni", label: "Santana",       lat: 11.4600, lon: -86.1000, facing: 245, type: "beachbreak", quality: "medium", exp: 1.01, expCal: "surfline" }, // Surfline hoy 4-5ft
+  manzanillo:   { country: "ni", label: "Manzanillo",    lat: 11.3850, lon: -86.0430, facing: 240, type: "point",      quality: "long", exp: 0.85, expCal: "surfline" } // Punta Manzanillo (sur de Colorado) — SF 11.38N 86.04W
 };
 
 // Slugs verificados contra surf-forecast.com el 2026-07-24 (sesión del usuario)
 const SF_SLUGS = {
   pato: "Los-Patos", encuentro: "Encuentro", macao: "Playadel-Macao",
   playagrande: "Playa-Grande_2", lapreciosa: "La-Preciosa", coson: "Elcoson",
-  laboya: "La-Boya_2", puntaparaiso: "Punta-Paraiso", bahoruco: "Baorvco",
+  laboya: "La-Boya_2", puntaparaiso: "Punta-Paraiso", bahoruco: "Baorvco", elcanal: "El-Canal",
   popoyo: "Popoyo", colorado: "Colorado", lancesleft: "El-Astillero",
   manzanillo: "Punta-Manzanillo"
 };
 
 function externalLinks(spotKey) {
   const s = SPOTS[spotKey];
-  const sfCountry = s.country === "do" ? "Dominican-Republic" : "Nicaragua";
+  const sfCountry = s.country === "do" ? "Dominican-Rep" : "Nicaragua";
   const sf = SF_SLUGS[spotKey]
     ? `https://www.surf-forecast.com/breaks/${SF_SLUGS[spotKey]}/forecasts/latest`
     : `https://www.surf-forecast.com/countries/${sfCountry}/breaks`;
@@ -296,19 +621,6 @@ const quiver = [
     defaultSetup: "thruster"
   },
   {
-    id: 7, name: "Boss Up I-Bolic", brand: "Slater Designs", role: "STEP-UP VERSÁTIL · One-board quiver", bag: false,
-    length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
-    finSystem: "Futures", construction: "I-Bolic + Fiberglass",
-    tags: ["stepup", "versatile", "one-board-quiver", "good-waves"],
-    note: "One-board quiver / step-up versátil. KS1 en quad recomendado.",
-    finSets: {
-      quad:     { name: "Endorfins KS1 (Large) configurado como Quad", config: "Quad", note: "Recomendación oficial Firewire." },
-      thruster: { name: "Endorfins KS1 (Large) como Thruster", config: "Thruster", note: "Para pivote y control en secciones cortas." },
-      stepup:   { name: "Endorfins KSR (Large)", config: "Quad", note: "Más hold y arcos largos para olas grandes." }
-    },
-    defaultSetup: "quad"
-  },
-  {
     id: 8, name: "Boss Up Volcanic", brand: "Slater Designs", role: "TODO TERRENO · Caballo de batalla diario", bag: true,
     length: 6.5, lengthLabel: "6'6\"", volume: 39.5, tail: "Round", fins: 5, finType: "quad-prefer",
     finSystem: "Futures", construction: "I-Bolic + Volcanic",
@@ -345,11 +657,23 @@ const quiver = [
       stepup:   { name: "Endorfins KS1 (Large)", config: "Quad / Thruster", note: "Más pivote y release." }
     },
     defaultSetup: "quad"
+  },
+  {
+    id: 11, name: "Seaside 6'0 Limited Full Carbon", brand: "Firewire / Machado", role: "GROVEL PRIMARIO · Fish quad, máxima remada", bag: false,
+    length: 6.0, lengthLabel: "6'0\"", volume: 44.8, tail: "Swallow", fins: 4, finType: "quad-only",
+    finSystem: "Futures", construction: "Full Carbon (Limited)",
+    tags: ["fish", "grovel", "glide", "keel", "small-medium"],
+    note: "Comprada sep-2026 con el análisis del dashboard: llena el hueco grovel (target 44-46L a 200-215 lb). Días flojos, glide y líneas largas. 6'0\" x 22.875\" x 2.9375\".",
+    finSets: {
+      quad:    { name: "Futures Machado Quad (RM) — set oficial", config: "Quad Keel", note: "El template de Machado para la Seaside: drive y glide." },
+      quadAlt: { name: "Futures Quad upright (F8/AM) — Large", config: "Quad (alt)", note: "Más pivote y giro corto; pierdes algo de drive del keel." }
+    },
+    defaultSetup: "quad"
   }
 ];
 
 function activeQuiver() {
-  return state.scope === "bag" ? quiver.filter(b => b.bag) : quiver;
+  return quiver; // siempre el quiver completo (bolso Nicaragua eliminado)
 }
 
 // ============ FIN SETUP DECISION ============
@@ -496,10 +820,81 @@ function scoreBoard(board, c) {
   };
 }
 
-// ============ FORECAST (Open-Meteo, próximos 7 días) ============
+// ============ FORECAST (Open-Meteo, próximos 16 días) ============
 const forecastCache = {};
+let lastDataUpdate = null;   // hora legible de la última descarga
+let lastFetchEpoch = null;  // ms epoch de la última descarga
+const REFRESH_MS = 6 * 60 * 60 * 1000; // 6 h = 4 veces al día
 let currentForecast = null;
 let selectedDayIdx = null;
+
+const COMPASS16 = ["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+function compass(deg){ return COMPASS16[Math.round(((deg||0)%360)/22.5)%16]; }
+
+// Estima altura de CARA de ola rompiendo (pies) desde el swell primario + período + exposición del spot.
+// APROXIMADO — no es el modelo LOTUS de Surfline, pero habla el mismo idioma (pies).
+function surfFaceFt(day, spot){
+  const swm = (day.swellH != null ? day.swellH : day.height) || 0;
+  const P = day.swellP || day.period || 8;
+  const baseFt = swm * 3.281;
+  let pf; // factor por período (energía)
+  if (P < 8) pf = 0.85; else if (P < 10) pf = 1.0; else if (P < 12) pf = 1.15;
+  else if (P < 14) pf = 1.3; else if (P < 16) pf = 1.45; else pf = 1.6;
+  let ef; // factor por exposición del spot
+  if (spot.exp != null) {
+    ef = spot.exp;                       // calibrado por spot (Nicaragua)
+  } else {
+    const t = spot.type, q = spot.quality;   // estimador genérico (RD, sin ref. Surfline)
+    if ((t === "point" || t === "reef") && q === "long") ef = 1.15;
+    else if (t === "reef" || t === "point") ef = 1.05;
+    else if (t === "beachbreak" && q === "short") ef = 0.9;
+    else ef = 1.0;
+  }
+  const face = baseFt * pf * ef;
+  const lo = Math.max(0, Math.round(face * 0.85));
+  const hi = Math.max(lo + 1, Math.round(face * 1.15));
+  return { lo, hi, mid: face, label: face < 1 ? "flat" : lo + "-" + hi + "ft" };
+}
+
+// Puntaje de condición 0-100 (tamaño + viento + CALIDAD del swell).
+// Regla dura: windswell de período corto NUNCA puede ser ÉPICO aunque tenga tamaño.
+function conditionScore(day, spot){
+  const f = surfFaceFt(day, spot).mid;
+  let sz;
+  if (f < 1) sz = 0; else if (f < 2) sz = 20; else if (f < 3) sz = 45;
+  else if (f < 4) sz = 60; else if (f < 6) sz = 69; else if (f < 9) sz = 80; else if (f < 12) sz = 70; else sz = 55;
+  let windAdj = { offshore: 12, crossoff: 5, cross: -8, crosson: -22, onshore: -38 }[day.windClass] || 0;
+  if (day.wind <= 10) windAdj = 6;                 // glassy: la dirección no importa
+  else if (day.wind <= 18) windAdj = windAdj * 0.5; // brisa: efecto a medias
+  const windStrong = Math.max(0, day.wind - 20) * 1.8; // viento fuerte castiga aunque sea offshore
+  const P = day.swellP || day.period || 0;
+  // Energía (misma escala kJ de Surf-Forecast): sus estrellas dependen sobre todo de esto
+  const kJ = 16 * day.height * day.height * (day.period || P || 0);
+  let energyAdj;
+  if (kJ < 40) energyAdj = -25; else if (kJ < 100) energyAdj = -14; else if (kJ < 200) energyAdj = -12;
+  else if (kJ < 350) energyAdj = -2; else if (kJ < 500) energyAdj = 6; else energyAdj = 12;
+  let perAdj; // calidad del swell por período
+  if (P <= 8) perAdj = -24;       // windswell puro: desordenado, sin pared real
+  else if (P <= 10) perAdj = -10; // mixto
+  else if (P <= 12) perAdj = 0;   // swell decente
+  else if (P <= 14) perAdj = 8;   // groundswell
+  else perAdj = 12;               // groundswell largo
+  let score = sz + windAdj + perAdj + energyAdj - windStrong;
+  if (f < 6 || kJ < 450) score = Math.min(score, 85);  // ÉPICO: 6ft+ Y energía alta (≥450 kJ)
+  if (f < 2) score = Math.min(score, 28);  // rodilla nunca pasa de POBRE
+  return Math.max(0, Math.min(100, score));
+}
+
+// Buckets de color (leyenda) — replican el semáforo de Surfline.
+const RATING_BUCKETS = [
+  { min: 86, k: "ÉPICO",     bar: "bg-purple-600",  chip: "bg-purple-100 text-purple-800",   solid: "bg-purple-600 border-purple-700 text-white" },
+  { min: 72, k: "BUENO",     bar: "bg-emerald-600", chip: "bg-emerald-100 text-emerald-800", solid: "bg-emerald-600 border-emerald-700 text-white" },
+  { min: 58, k: "REG-BUENO", bar: "bg-lime-400",    chip: "bg-lime-100 text-lime-700",       solid: "bg-lime-400 border-lime-500 text-slate-900" },
+  { min: 42, k: "REGULAR",   bar: "bg-amber-400",   chip: "bg-amber-100 text-amber-800",     solid: "bg-amber-400 border-amber-500 text-slate-900" },
+  { min: 22, k: "POBRE",     bar: "bg-orange-500",  chip: "bg-orange-100 text-orange-700",   solid: "bg-orange-500 border-orange-600 text-white" },
+  { min: -1, k: "MALO",      bar: "bg-rose-500",    chip: "bg-rose-100 text-rose-700",       solid: "bg-rose-500 border-rose-600 text-white" }
+];
+function ratingBucket(score){ return RATING_BUCKETS.find(b => score >= b.min); }
 
 function classifyWind(windFromDeg, facingDeg) {
   const offshoreDir = (facingDeg + 180) % 360;
@@ -521,6 +916,7 @@ const POWER_BADGE = {
 };
 
 const WIND_DIR_LABEL = {
+  glassy:   { txt: "Glassy", cls: "text-emerald-800 bg-emerald-200" },
   offshore: { txt: "Offshore", cls: "text-emerald-700 bg-emerald-100" },
   crossoff: { txt: "Cross-off", cls: "text-sky-700 bg-sky-100" },
   cross:    { txt: "Cross", cls: "text-slate-600 bg-slate-100" },
@@ -540,17 +936,223 @@ function dayLabelFromISO(iso) {
 }
 
 function dayQuality(day) {
-  const power = day.height * day.height * day.period;
-  const windBonus = { offshore: 30, crossoff: 15, cross: 0, crosson: -20, onshore: -40 }[day.windClass] || 0;
-  return Math.min(power, 35) - Math.abs(power - 22) * 0.5 + windBonus - Math.max(0, day.wind - 25) * 0.5;
+  return conditionScore(day, SPOTS[state.spot]);
+}
+
+// ============ AUTO-CALIBRACIÓN Hs vs SURF-FORECAST (capturas 17-ago-2026) ============
+// Surf-Forecast publica Hs de mar abierto — la MISMA magnitud que Open-Meteo.
+// La página computa el factor exacto por playa (referencia ÷ Open-Meteo en la misma
+// fecha/hora/coordenadas) en tu navegador, y lo guarda en localStorage.
+const CAL_REFS = {
+  // Leídas directamente de surf-forecast.com el 18-oct-2026 (emisión 7am AST / 5am CST), 3 días × 3h.
+  "canal-ref":     { label: "El Canal/Encuentro", lat: 19.76, lon: -70.52, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.7 }, { t: "2026-10-18T14:00", hs: 0.6 }, { t: "2026-10-18T20:00", hs: 0.4 }, { t: "2026-10-19T08:00", hs: 0.6 }, { t: "2026-10-19T14:00", hs: 0.6 }, { t: "2026-10-19T20:00", hs: 1.3 }, { t: "2026-10-20T08:00", hs: 2.0 }, { t: "2026-10-20T14:00", hs: 1.9 }] },
+  "preciosa-ref":  { label: "La Preciosa/P.Grande", lat: 19.67, lon: -70.06, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.6 }, { t: "2026-10-18T14:00", hs: 0.6 }, { t: "2026-10-18T20:00", hs: 0.5 }, { t: "2026-10-19T08:00", hs: 0.6 }, { t: "2026-10-19T14:00", hs: 0.5 }, { t: "2026-10-19T20:00", hs: 1.3 }, { t: "2026-10-20T08:00", hs: 2.0 }, { t: "2026-10-20T14:00", hs: 1.8 }] },
+  "coson-ref":     { label: "El Cosón",       lat: 19.33, lon: -69.54, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.4 }, { t: "2026-10-18T14:00", hs: 0.4 }, { t: "2026-10-18T20:00", hs: 0.4 }, { t: "2026-10-19T08:00", hs: 0.4 }, { t: "2026-10-19T14:00", hs: 0.3 }, { t: "2026-10-19T20:00", hs: 0.4 }, { t: "2026-10-20T08:00", hs: 0.9 }, { t: "2026-10-20T14:00", hs: 1.0 }] },
+  "laboya-ref":    { label: "La Boya",        lat: 18.40, lon: -69.63, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.6 }, { t: "2026-10-18T14:00", hs: 0.5 }, { t: "2026-10-19T08:00", hs: 0.5 }, { t: "2026-10-19T20:00", hs: 0.5 }, { t: "2026-10-20T08:00", hs: 0.5 }, { t: "2026-10-20T14:00", hs: 0.5 }] },
+  "lospatos-ref":  { label: "Los Patos",      lat: 18.22, lon: -70.24, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.8 }, { t: "2026-10-18T14:00", hs: 0.6 }, { t: "2026-10-19T08:00", hs: 0.6 }, { t: "2026-10-19T14:00", hs: 0.6 }, { t: "2026-10-20T08:00", hs: 0.5 }, { t: "2026-10-20T14:00", hs: 0.5 }] },
+  "bahoruco-ref":  { label: "Bahoruco",       lat: 18.13, lon: -71.06, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.8 }, { t: "2026-10-18T14:00", hs: 0.7 }, { t: "2026-10-19T08:00", hs: 0.6 }, { t: "2026-10-19T14:00", hs: 0.6 }, { t: "2026-10-20T08:00", hs: 0.6 }, { t: "2026-10-20T14:00", hs: 0.6 }] },
+  "ppar-ref":      { label: "Punta Paraíso",  lat: 18.84, lon: -68.61, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.8 }, { t: "2026-10-18T14:00", hs: 0.7 }, { t: "2026-10-18T20:00", hs: 0.7 }, { t: "2026-10-19T08:00", hs: 0.5 }, { t: "2026-10-19T14:00", hs: 0.5 }, { t: "2026-10-19T20:00", hs: 0.6 }, { t: "2026-10-20T08:00", hs: 1.9 }, { t: "2026-10-20T14:00", hs: 1.7 }] },
+  "macao-ref":     { label: "Macao",          lat: 18.78, lon: -68.55, tz: "America/Santo_Domingo", points: [{ t: "2026-10-18T08:00", hs: 0.8 }, { t: "2026-10-18T14:00", hs: 0.7 }, { t: "2026-10-18T20:00", hs: 0.7 }, { t: "2026-10-19T08:00", hs: 0.5 }, { t: "2026-10-19T14:00", hs: 0.5 }, { t: "2026-10-19T20:00", hs: 0.6 }, { t: "2026-10-20T08:00", hs: 1.9 }, { t: "2026-10-20T14:00", hs: 1.7 }] },
+  "popoyo-ref":    { label: "Popoyo",         lat: 11.46, lon: -86.11, tz: "America/Managua", points: [{ t: "2026-10-18T06:00", hs: 1.3 }, { t: "2026-10-18T12:00", hs: 1.4 }, { t: "2026-10-18T18:00", hs: 1.5 }, { t: "2026-10-19T06:00", hs: 1.2 }, { t: "2026-10-19T12:00", hs: 1.2 }, { t: "2026-10-19T18:00", hs: 1.1 }, { t: "2026-10-20T06:00", hs: 1.1 }, { t: "2026-10-20T12:00", hs: 1.1 }] },
+  "astillero-ref": { label: "El Astillero",   lat: 11.51, lon: -86.17, tz: "America/Managua", points: [{ t: "2026-10-18T06:00", hs: 1.3 }, { t: "2026-10-18T12:00", hs: 1.4 }, { t: "2026-10-18T18:00", hs: 1.5 }, { t: "2026-10-19T06:00", hs: 1.2 }, { t: "2026-10-19T12:00", hs: 1.2 }, { t: "2026-10-19T18:00", hs: 1.1 }, { t: "2026-10-20T06:00", hs: 1.1 }, { t: "2026-10-20T12:00", hs: 1.1 }] },
+  "colorado-ref":  { label: "P. Colorado",    lat: 11.41, lon: -86.05, tz: "America/Managua", points: [{ t: "2026-10-18T06:00", hs: 1.1 }, { t: "2026-10-18T12:00", hs: 1.1 }, { t: "2026-10-18T18:00", hs: 1.1 }, { t: "2026-10-19T06:00", hs: 1.1 }, { t: "2026-10-19T12:00", hs: 1.0 }, { t: "2026-10-19T18:00", hs: 1.0 }, { t: "2026-10-20T06:00", hs: 1.0 }, { t: "2026-10-20T12:00", hs: 0.9 }] }
+};
+// direct = mismo break de la captura · proxy = break vecino con misma exposición
+const SF_CAL_MAP = {
+  encuentro:    { ref: "canal-ref",     mode: "direct" },
+  elcanal:      { ref: "canal-ref",     mode: "direct" },
+  lapreciosa:   { ref: "preciosa-ref",  mode: "direct" },
+  playagrande:  { ref: "preciosa-ref",  mode: "direct" }, // misma serie SF
+  nagua:        { ref: "preciosa-ref",  mode: "proxy"  }, // SF no tiene Nagua
+  coson:        { ref: "coson-ref",     mode: "direct" },
+  laboya:       { ref: "laboya-ref",    mode: "direct" },
+  pato:         { ref: "lospatos-ref",  mode: "direct" },
+  puntaparaiso: { ref: "ppar-ref",      mode: "direct" },
+  bahoruco:     { ref: "bahoruco-ref",  mode: "direct" },
+  macao:        { ref: "macao-ref",     mode: "direct" },
+  popoyo:       { ref: "popoyo-ref",    mode: "direct" },
+  playgrounds:  { ref: "popoyo-ref",    mode: "proxy"  },
+  santana:      { ref: "popoyo-ref",    mode: "proxy"  },
+  lancesleft:   { ref: "astillero-ref", mode: "direct" },
+  manzanillo:   { ref: "colorado-ref",  mode: "direct" }, // SF Punta Manzanillo = serie Colorado
+  colorado:     { ref: "colorado-ref",  mode: "direct" },
+  pangadrops:   { ref: "colorado-ref",  mode: "proxy"  }
+};
+// ============ SWELLCLOUD (fuente secundaria opcional) ============
+// Llena los días 11-16 donde el modelo de olas de Open-Meteo ya no da dato.
+// La clave la pide el usuario en swellcloud.net/api (llega por email) y se pega abajo.
+const SC_BASE = "https://api.swellcloud.net/v1";
+const SC_KEY_STORE = "swellcloudKeyV1";
+let scState = { ok: null, msg: "sin clave — solo Open-Meteo" };
+function getScKey() { try { return (localStorage.getItem(SC_KEY_STORE) || "").trim(); } catch (e) { return ""; } }
+
+const TZ_OFFSET = { "America/Santo_Domingo": -4, "America/Managua": -6 }; // sin DST
+
+function scNum(v) { const x = parseFloat(v); return isNaN(x) ? null : x; }
+
+// Parser tolerante: acepta arrays por variable o lista de registros
+function scParse(json) {
+  const out = [];
+  const arr = Array.isArray(json) ? json : (json && (json.data || json.hours || json.points || json.results));
+  if (Array.isArray(arr) && arr.length && typeof arr[0] === "object") {
+    for (const r of arr) {
+      const t = r.time || r.timestamp || r.t || r.date;
+      if (!t) continue;
+      out.push({ t: String(t), hs: scNum(r.hs ?? r.wave_height ?? r.height),
+                 tp: scNum(r.tp ?? r.wave_period ?? r.period),
+                 dp: scNum(r.dp ?? r.wave_direction ?? r.direction) });
+    }
+    return out;
+  }
+  const j = json || {};
+  const times = j.time || j.times || (j.hourly && j.hourly.time);
+  const H = j.hs || (j.hourly && j.hourly.hs);
+  const T = j.tp || (j.hourly && j.hourly.tp);
+  const D = j.dp || (j.hourly && j.hourly.dp);
+  if (Array.isArray(times) && Array.isArray(H)) {
+    for (let i = 0; i < times.length; i++)
+      out.push({ t: String(times[i]), hs: scNum(H[i]), tp: scNum(T && T[i]), dp: scNum(D && D[i]) });
+  }
+  return out;
+}
+
+// Rellena en `days` los que tengan noData, usando SwellCloud
+async function scFill(spot, days, calF, tz) {
+  const key = getScKey();
+  if (!key) return 0;
+  const missing = days.filter(d => d.noData);
+  if (!missing.length) return 0;
+  const first = missing[0].iso, last = missing[missing.length - 1].iso;
+  const url = `${SC_BASE}/point?lat=${spot.lat}&lon=${spot.lon}&vars=hs,tp,dp&start=${first}T00:00Z&end=${last}T23:00Z&units=si`;
+  let r;
+  try {
+    r = await fetch(url, { headers: { "X-API-Key": key } });
+  } catch (e) {
+    scState = { ok: false, msg: "sin acceso (CORS o red) — solo Open-Meteo" };
+    paintScStatus(); return 0;
+  }
+  if (r.status === 401 || r.status === 403) { scState = { ok: false, msg: "clave rechazada (" + r.status + ")" }; paintScStatus(); return 0; }
+  if (!r.ok) { scState = { ok: false, msg: "error HTTP " + r.status }; paintScStatus(); return 0; }
+  let recs;
+  try { recs = scParse(await r.json()); } catch (e) { recs = []; }
+  if (!recs.length) { scState = { ok: false, msg: "respuesta en formato inesperado — mándame una captura del JSON" }; paintScStatus(); return 0; }
+  const off = TZ_OFFSET[tz] ?? -4;
+  const utcHour = String(7 - off).padStart(2, "0"); // 7:00 AM local en UTC
+  let filled = 0;
+  for (const d of missing) {
+    const prefix = d.iso + "T" + utcHour;
+    let rec = recs.find(x => x.t.startsWith(prefix));
+    if (!rec) rec = recs.find(x => x.t.startsWith(d.iso)); // fallback: cualquier hora del día
+    if (!rec || rec.hs == null) continue;
+    d.height = Math.round(rec.hs * calF * 10) / 10;
+    d.swellH = d.height;
+    d.period = rec.tp != null ? Math.round(rec.tp) : 10;
+    d.swellP = d.period;
+    d.swellDir = rec.dp != null ? rec.dp : 0;
+    d.noData = false;
+    d.src = "sc";
+    filled++;
+  }
+  scState = filled
+    ? { ok: true, msg: "activo ✓ — llenó " + filled + " día(s) extra (GFS)" }
+    : { ok: false, msg: "respondió pero sin datos para esas fechas" };
+  paintScStatus();
+  return filled;
+}
+
+function paintScStatus() {
+  const el = document.getElementById("scStatus");
+  if (!el) return;
+  const key = getScKey();
+  if (!key) { el.textContent = "sin clave — solo Open-Meteo"; el.className = "text-slate-400"; return; }
+  el.textContent = scState.msg;
+  el.className = scState.ok ? "text-emerald-600 font-semibold" : (scState.ok === false ? "text-rose-500" : "text-slate-400");
+}
+
+const HSCAL_KEY = "quiverHsCalV5"; // v5: Punta Paraíso reubicada (este), coords NIC corregidas, Manzanillo→Colorado
+let HSCAL = null;
+try { HSCAL = JSON.parse(localStorage.getItem(HSCAL_KEY)); } catch (e) {}
+// Migración oct-2026: spot El Canal añadido — hereda su ratio ya computado sin tocar la red
+try {
+  if (HSCAL && HSCAL.refs && HSCAL.refs["elcanal-ref"] && HSCAL.factors && HSCAL.factors.elcanal == null) {
+    HSCAL.factors.elcanal = HSCAL.refs["elcanal-ref"];
+    localStorage.setItem(HSCAL_KEY, JSON.stringify(HSCAL));
+  }
+} catch (e) {}
+
+function getHsCal(spotKey) {
+  return (HSCAL && HSCAL.factors && HSCAL.factors[spotKey]) || null;
+}
+
+async function fetchRefRatio(refId) {
+  const ref = CAL_REFS[refId];
+  const tries = [31, 7]; // past_days: alcanza el ancla del 17-ago mientras esté en ventana
+  for (const pd of tries) {
+    try {
+      const url = `https://marine-api.open-meteo.com/v1/marine?latitude=${ref.lat}&longitude=${ref.lon}` +
+        `&timezone=${encodeURIComponent(ref.tz)}&past_days=${pd}&forecast_days=16&hourly=wave_height`;
+      const r = await fetch(url);
+      if (!r.ok) continue;
+      let j = await r.json();
+      if (Array.isArray(j)) j = j[0];
+      const times = j.hourly.time, hs = j.hourly.wave_height;
+      let sRef = 0, sOm = 0, n = 0;
+      for (const pt of ref.points) {
+        const i = times.indexOf(pt.t);
+        if (i >= 0 && hs[i] > 0.05) { sRef += pt.hs; sOm += hs[i]; n++; }
+      }
+      if (n >= 2) return Math.min(1.8, Math.max(0.4, sRef / sOm)); // regresión por el origen
+    } catch (e) { /* siguiente intento */ }
+  }
+  return null;
+}
+
+async function runHsCalibration(force) {
+  if (!force && HSCAL && HSCAL.factors) { paintCalStatus(); return; }
+  paintCalStatus("calibrando…");
+  const refIds = Object.keys(CAL_REFS);
+  const results = await Promise.all(refIds.map(fetchRefRatio));
+  const refRatios = {};
+  refIds.forEach((id, i) => { if (results[i]) refRatios[id] = Math.round(results[i] * 100) / 100; });
+  const factors = {};
+  Object.entries(SF_CAL_MAP).forEach(([spot, m]) => {
+    const r = refRatios[m.ref];
+    if (!r) return;
+    if (m.mode === "direct") factors[spot] = r;
+    else factors[spot] = Math.round(Math.min(1.3, Math.max(0.7, 1 + (r - 1) * 0.5)) * 100) / 100; // proxy: media corrección
+  });
+  if (Object.keys(factors).length) {
+    HSCAL = { at: new Date().toISOString().slice(0, 10), refs: refRatios, factors };
+    try { localStorage.setItem(HSCAL_KEY, JSON.stringify(HSCAL)); } catch (e) {}
+    Object.keys(forecastCache).forEach(k => delete forecastCache[k]); // recargar con datos corregidos
+    loadForecast(true);
+    paintSpotEnergy();
+  }
+  paintCalStatus();
+}
+
+function paintCalStatus(txt) {
+  const el = document.getElementById("calStatus");
+  if (!el) return;
+  if (txt) { el.textContent = "⚙️ " + txt; return; }
+  if (HSCAL && HSCAL.factors) {
+    el.innerHTML = "🎯 Hs calibrada c/ Surf-Forecast (anclas 18–20 oct, calc. " + HSCAL.at + ") · " +
+      Object.entries(HSCAL.refs).map(([k, v]) => CAL_REFS[k].label + " ×" + v.toFixed(2)).join(" · ") +
+      ' · <a href="#" id="recalHs" class="underline text-sky-600">↻ recalibrar</a>';
+    const a = document.getElementById("recalHs");
+    if (a) a.addEventListener("click", e => { e.preventDefault(); try { localStorage.removeItem(HSCAL_KEY); } catch (err) {} HSCAL = null; runHsCalibration(true); });
+  } else {
+    el.textContent = "⏳ Calibración Hs pendiente — se ejecuta sola al abrir con internet.";
+  }
 }
 
 async function fetchForecast(spotKey) {
   if (forecastCache[spotKey]) return forecastCache[spotKey];
   const s = SPOTS[spotKey];
-  const base = `latitude=${s.lat}&longitude=${s.lon}&timezone=${encodeURIComponent(COUNTRIES[s.country].tz)}&forecast_days=8`;
+  const calF = getHsCal(spotKey) || 1;
+  const base = `latitude=${s.lat}&longitude=${s.lon}&timezone=${encodeURIComponent(COUNTRIES[s.country].tz)}&forecast_days=16`;
   const [mRes, wRes] = await Promise.all([
-    fetch(`https://marine-api.open-meteo.com/v1/marine?${base}&hourly=wave_height,wave_period,wave_direction`),
+    fetch(`https://marine-api.open-meteo.com/v1/marine?${base}&hourly=wave_height,wave_period,wave_direction,swell_wave_height,swell_wave_period,swell_wave_direction,wind_wave_height`),
     fetch(`https://api.open-meteo.com/v1/forecast?${base}&hourly=wind_speed_10m,wind_direction_10m`)
   ]);
   if (!mRes.ok || !wRes.ok) throw new Error("API error");
@@ -565,24 +1167,47 @@ async function fetchForecast(spotKey) {
   if (start < 0) start = 0;
   start = Math.floor(start / 24) * 24;
 
-  for (let d = 0; d < 7; d++) {
+  for (let d = 0; d < 16; d++) {
     const i = start + d * 24 + 7; // 7:00 AM local
     if (i >= times.length) break;
     const windFrom = w.hourly.wind_direction_10m[i];
+    const rawH = m.hourly.wave_height[i];
+    if (rawH == null) { // más allá del horizonte del modelo de olas (~10 días): NO inventar flat
+      days.push({
+        iso: times[i].slice(0, 10), noData: true,
+        height: 0, period: 0, swellH: 0, swellP: 0, swellDir: 0, windWaveH: 0,
+        wind: Math.round(w.hourly.wind_speed_10m[i] ?? 0),
+        windFrom: windFrom ?? 0,
+        windClass: windFrom != null ? classifyWind(windFrom, s.facing) : "cross"
+      });
+      continue;
+    }
+    const totalH = rawH;
+    const swH = (m.hourly.swell_wave_height && m.hourly.swell_wave_height[i] != null) ? m.hourly.swell_wave_height[i] : totalH;
+    const swP = (m.hourly.swell_wave_period && m.hourly.swell_wave_period[i] != null) ? m.hourly.swell_wave_period[i] : (m.hourly.wave_period[i] ?? 0);
+    const swD = (m.hourly.swell_wave_direction && m.hourly.swell_wave_direction[i] != null) ? m.hourly.swell_wave_direction[i] : (m.hourly.wave_direction[i] ?? 0);
     days.push({
       iso: times[i].slice(0, 10),
-      height: Math.round((m.hourly.wave_height[i] ?? 0) * 10) / 10,
+      height: Math.round(totalH * calF * 10) / 10,        // Hs total (m) corregida — alimenta el modelo de tablas
       period: Math.round(m.hourly.wave_period[i] ?? 0),
-      wind: Math.round(w.hourly.wind_speed_10m[i] ?? 0),
+      swellH: Math.round(swH * calF * 10) / 10,           // swell primario (m) corregido
+      swellP: Math.round(swP),                            // período swell (s)
+      swellDir: swD,                                      // dirección swell (grados)
+      windWaveH: Math.round(((m.hourly.wind_wave_height && m.hourly.wind_wave_height[i]) ?? 0) * calF * 10) / 10,
+      wind: Math.round(w.hourly.wind_speed_10m[i] ?? 0),  // km/h
       windFrom,
       windClass: classifyWind(windFrom, s.facing)
     });
+  }
+  if (getScKey() && days.some(d => d.noData)) {
+    try { await scFill(s, days, calF, COUNTRIES[s.country].tz); } catch (e) { /* SwellCloud es opcional */ }
   }
   forecastCache[spotKey] = days;
   return days;
 }
 
 function applyDay(day, idx) {
+  if (day && day.noData) return;
   selectedDayIdx = idx;
   state.height = Math.min(4, Math.max(0.5, day.height || 0.5));
   state.period = Math.min(18, Math.max(5, day.period || 5));
@@ -594,6 +1219,7 @@ function applyDay(day, idx) {
   document.getElementById("windDir").value = state.windDir;
   renderForecastStrip();
   render();
+  paintSpotEnergy(); // 🏆 del día seleccionado (usa caché, no re-descarga)
 }
 
 function renderForecastStrip() {
@@ -617,34 +1243,86 @@ function renderForecastStrip() {
   const t0 = todayISO();
   let bestIdx = -1, bestQ = -Infinity;
   currentForecast.forEach((d, i) => {
+    if (d.noData) return;
     const q = dayQuality(d);
     if (q > bestQ) { bestQ = q; bestIdx = i; }
   });
 
-  strip.innerHTML = currentForecast.map((d, i) => {
+  const spot = SPOTS[state.spot];
+  strip.innerHTML = currentForecast.map((d, i) => { try {
     const lbl = dayLabelFromISO(d.iso);
-    const wl = WIND_DIR_LABEL[d.windClass];
+    const wl = WIND_DIR_LABEL[d.wind <= 10 ? "glassy" : d.windClass];
     const isToday = d.iso === t0;
     const sel = i === selectedDayIdx;
-    const power = d.height * d.height * d.period;
-    const pw = getPowerLabel(power);
-    const pwCls = POWER_BADGE[pw.label] || "bg-slate-100 text-slate-600";
-    return `
-      <div class="day-card rounded-xl border-2 p-2 text-center ${sel ? 'border-sky-500 bg-sky-50 ring-2 ring-sky-300' : 'border-slate-200 bg-white hover:border-sky-400'}" data-day="${i}">
-        <div class="text-[11px] font-bold ${isToday ? 'text-sky-700' : 'text-slate-500'}">${i === bestIdx ? '⭐ ' : ''}${isToday ? 'HOY' : lbl.wd}</div>
-        <div class="text-[10px] text-slate-400 mb-1">${lbl.dm}</div>
-        <div class="text-sm font-bold text-slate-800">${d.height.toFixed(1)} m</div>
-        <div class="text-[11px] text-slate-500">${d.period} s</div>
-        <div class="text-[11px] text-slate-500">💨 ${d.wind} km/h</div>
-        <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${pwCls}">⚡ ${pw.label} · ${power.toFixed(0)}</div>
-        <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${wl.cls}">${wl.txt}</div>
+    const kt = Math.round(d.wind / 1.852);
+    if (d.noData) {
+      const lblN = dayLabelFromISO(d.iso);
+      return `
+      <div class="day-card rounded-xl border-2 border-dashed border-slate-200 bg-slate-50 text-center opacity-60" data-day="${i}" data-nodata="1" title="Fuera del horizonte del modelo de olas (~10 días). El dato aparecerá al acercarse la fecha.">
+        <div class="h-1.5 bg-slate-200"></div>
+        <div class="p-2">
+          <div class="text-[11px] font-bold text-slate-400">${lblN.wd}</div>
+          <div class="text-[10px] text-slate-300 mb-1">${lblN.dm}</div>
+          <div class="text-base font-extrabold text-slate-400 leading-none">s/d</div>
+          <div class="text-[9px] font-bold uppercase tracking-wide mt-1 px-1 py-0.5 rounded bg-slate-100 text-slate-400">SIN DATO OLAS</div>
+          <div class="text-[10px] text-slate-400 mt-1">💨 ${kt}kt</div>
+          <div class="text-[10px] text-slate-300 mt-1">llega ~10 días antes</div>
+        </div>
       </div>`;
-  }).join('');
+    }
+    const face = surfFaceFt(d, spot);
+    const score = conditionScore(d, spot);
+    const rb = ratingBucket(score);
+    const kj = Math.round(16 * d.height * d.height * (d.period || d.swellP || 0));
+    const pPow = d.height * d.height * (d.period || d.swellP || 0);
+    const pw = getPowerLabel(pPow);
+    const pwCls = POWER_BADGE[pw.label] || "bg-slate-100 text-slate-600";
+    const swFt = ((d.swellH != null ? d.swellH : d.height) * 3.281).toFixed(1);
+    const lowConf = i >= 10;
+    return `
+      <div class="day-card rounded-xl border-2 overflow-hidden text-center ${sel ? 'border-sky-600 ring-2 ring-sky-300' : (lowConf ? 'border-dashed border-slate-300' : 'border-slate-200')} bg-white hover:border-sky-400 ${lowConf ? 'opacity-70' : ''}" data-day="${i}" title="${lowConf ? 'Día '+(i+1)+' — baja confianza del modelo' : ''}">
+        <div class="h-1.5 ${rb.bar}"></div>
+        <div class="p-2">
+          <div class="text-[11px] font-bold ${isToday ? 'text-sky-700' : 'text-slate-500'}">${i === bestIdx ? '⭐ ' : ''}${isToday ? 'HOY' : lbl.wd}${lowConf ? ' <span class="text-slate-300">≈</span>' : ''}</div>
+          <div class="text-[10px] text-slate-400 mb-1">${lbl.dm}</div>
+          <div class="text-base font-extrabold text-slate-900 leading-none">${face.label}</div>
+          <div class="text-[9px] font-bold uppercase tracking-wide mt-1 px-1 py-0.5 rounded ${rb.chip}">${rb.k}</div>
+          <div class="text-[10px] text-slate-500 mt-1">🌊 ${swFt}ft (${(d.swellH != null ? d.swellH : d.height).toFixed(1)}m) · ${d.swellP}s</div>
+          <div class="text-[10px] text-slate-400">${compass(d.swellDir)}${d.src === "sc" ? ' · <span class="font-bold text-indigo-400" title="Dato SwellCloud (GFS) — fuera del horizonte de Open-Meteo">SC</span>' : ''}</div>
+          <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${pwCls}">⚡ ${pw.label} · ${kj} kJ</div>
+          <div class="text-[10px] font-semibold mt-1 px-1 py-0.5 rounded ${wl.cls}">💨 ${kt}kt · ${wl.txt}</div>
+        </div>
+      </div>`;
+  } catch (err) {
+    console.error("Tarjeta día " + i + " falló:", err);
+    return `<div class="day-card rounded-xl border-2 border-rose-200 bg-rose-50 p-2 text-center text-[10px] text-rose-600" data-day="${i}" data-nodata="1">error<br>día ${i + 1}</div>`;
+  } }).join('');
 
-  status.textContent = "7:00 AM · " + SPOTS[state.spot].label;
+  const nW = currentForecast.filter(d => !d.noData).length;
+  status.textContent = "7:00 AM · " + SPOTS[state.spot].label +
+    (nW < currentForecast.length ? " · olas: " + nW + " días / viento: " + currentForecast.length : "") +
+    (lastDataUpdate ? " · act. " + lastDataUpdate : "");
+
+  const cb = document.getElementById("calBadge");
+  if (cb) {
+    const sp = SPOTS[state.spot];
+    const base = "text-[10px] normal-case font-semibold px-1.5 py-0.5 rounded ml-1 ";
+    const f = getHsCal(state.spot);
+    const cal = SF_CAL_MAP[state.spot];
+    if (sp.expCal === "surfline") { cb.textContent = "✓ cara Surfline" + (f ? " · Hs SF ×" + f.toFixed(2) : " · Hs pendiente"); cb.className = base + "bg-emerald-100 text-emerald-700"; }
+    else if (sp.expCal === "est") { cb.textContent = "≈ cara por analogía" + (f ? " · Hs SF ×" + f.toFixed(2) : ""); cb.className = base + "bg-amber-100 text-amber-700"; }
+    else if (f && cal && cal.mode === "direct") { cb.textContent = "🎯 Hs calibrada c/ Surf-Forecast ×" + f.toFixed(2); cb.className = base + "bg-emerald-100 text-emerald-700"; }
+    else if (f && cal) { cb.textContent = "≈ Hs proxy " + CAL_REFS[cal.ref].label + " ×" + f.toFixed(2); cb.className = base + "bg-amber-100 text-amber-700"; }
+    else if (cal && !f) { cb.textContent = "⏳ calibración Hs pendiente"; cb.className = base + "bg-slate-100 text-slate-500"; }
+    else { cb.textContent = "estimador genérico (sin referencia)"; cb.className = base + "bg-slate-100 text-slate-500"; }
+  }
+  const legend = document.getElementById("ratingLegend");
+  if (legend) legend.innerHTML = '<span class="text-slate-400 uppercase tracking-wide">Condición:</span>' +
+    RATING_BUCKETS.slice().reverse().map(b => `<span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded-sm ${b.bar}"></span><span class="text-slate-600">${b.k}</span></span>`).join('');
 
   strip.querySelectorAll(".day-card").forEach(el => {
     el.addEventListener("click", () => {
+      if (el.dataset.nodata) return; // sin dato de olas: nada que cargar
       const i = parseInt(el.dataset.day);
       applyDay(currentForecast[i], i);
     });
@@ -658,14 +1336,26 @@ async function loadForecast(autoApplyToday) {
   try {
     const days = await fetchForecast(state.spot);
     currentForecast = days;
+    lastFetchEpoch = Date.now();
+    lastDataUpdate = new Date().toLocaleTimeString("es-DO", { hour: "2-digit", minute: "2-digit", timeZone: currentTZ() });
+    const ds = document.getElementById("dataStamp");
+    if (ds) ds.textContent = "actualizado " + lastDataUpdate;
     if (autoApplyToday && days.length) {
       applyDay(days[0], 0);
     } else {
       renderForecastStrip();
     }
   } catch (e) {
-    currentForecast = { error: true };
-    renderForecastStrip();
+    console.error("loadForecast:", e);
+    if (currentForecast && Array.isArray(currentForecast)) {
+      // los datos llegaron: el fallo fue al pintar → mostrar lo que haya y avisar
+      try { renderForecastStrip(); render(); } catch (e2) { console.error(e2); }
+      const st = document.getElementById("forecastStatus");
+      if (st) st.textContent = "⚠️ error al pintar: " + (e && e.message ? e.message : e);
+    } else {
+      currentForecast = { error: true };
+      renderForecastStrip();
+    }
   }
 }
 
@@ -729,6 +1419,9 @@ function buildReasoning(board, result, c) {
 
 function render() {
   document.getElementById("heightVal").textContent = state.height.toFixed(1) + " m";
+  const faceNow = surfFaceFt({ swellH: state.height, swellP: state.period, height: state.height, period: state.period }, SPOTS[state.spot]);
+  const hv = document.getElementById("heightVal");
+  if (hv) hv.textContent = state.height.toFixed(1) + " m Hs · ≈ " + faceNow.label + " cara";
   document.getElementById("periodVal").textContent = state.period + " s";
   document.getElementById("windVal").textContent = state.wind + " km/h";
 
@@ -738,9 +1431,7 @@ function render() {
   document.getElementById("dayLabel").textContent = p.day + " · " + getWindStateLabel(state.wind, state.windDir);
 
   const boards = activeQuiver();
-  document.getElementById("rankTitle").textContent = state.scope === "bag"
-    ? "Ranking del bolso Nicaragua (3 tablas)"
-    : "Ranking del quiver completo (" + boards.length + " tablas)";
+  document.getElementById("rankTitle").textContent = "Ranking del quiver completo (" + boards.length + " tablas)";
 
   const scored = boards.map(b => ({ board: b, result: scoreBoard(b, state) }))
     .sort((a, b) => b.result.score - a.result.score);
@@ -776,7 +1467,6 @@ function render() {
             <div class="flex items-center gap-2 flex-wrap">
               <span class="text-xs font-bold text-slate-400">#${b.id}</span>
               <h3 class="font-bold text-slate-900">${b.name}</h3>
-              ${b.bag ? '<span class="text-[10px] font-bold px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">🎒 NICA</span>' : ''}
               ${badge ? `<span class="text-xs font-semibold px-2 py-0.5 rounded-full ${badge.cls}">${badge.txt}</span>` : ''}
             </div>
             <p class="text-xs text-sky-700 font-semibold">${b.role}</p>
@@ -829,25 +1519,6 @@ function selectSpot(key) {
   loadForecast(true);
 }
 
-function paintScopeButtons() {
-  document.querySelectorAll(".scope-btn").forEach(b => {
-    const on = b.dataset.scope === state.scope;
-    b.classList.toggle("bg-indigo-600", on);
-    b.classList.toggle("text-white", on);
-    b.classList.toggle("border-indigo-600", on);
-  });
-  document.getElementById("scopeNote").textContent = state.scope === "bag"
-    ? "Solo Ghost, Boss Up Volcanic y Mindcraft — lo que va en el boardbag a Nicaragua."
-    : "Las 10 tablas activas del Master v9. Al cambiar a 🇳🇮 el análisis pasa solo al bolso automáticamente.";
-}
-document.querySelectorAll(".scope-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    state.scope = btn.dataset.scope;
-    paintScopeButtons();
-    render();
-  });
-});
-
 function buildCountryButtons() {
   const grid = document.getElementById("countryGrid");
   grid.innerHTML = Object.entries(COUNTRIES).map(([key, c]) =>
@@ -858,31 +1529,64 @@ function buildCountryButtons() {
     btn.addEventListener("click", () => {
       if (btn.dataset.country === state.country) return;
       state.country = btn.dataset.country;
-      // Nicaragua → bolso; RD → quiver completo (puedes cambiarlo manualmente después)
-      state.scope = state.country === "ni" ? "bag" : "full";
       const first = Object.keys(SPOTS).find(k => SPOTS[k].country === state.country);
       buildCountryButtons();
       buildSpotButtons();
-      paintScopeButtons();
       selectSpot(first);
     });
   });
 }
 
-// Fuerza viva por playa (Open-Meteo, hoy 7:00 AM) pintada en cada botón de spot
+// Cara estimada + condición por playa (día seleccionado) y 🏆 al mejor spot del día
 async function paintSpotEnergy() {
   const keys = Object.keys(SPOTS).filter(k => SPOTS[k].country === state.country);
-  keys.forEach(async k => {
+  const idx = selectedDayIdx != null ? selectedDayIdx : 0;
+  const results = await Promise.all(keys.map(async k => {
     try {
       const days = await fetchForecast(k);
-      const d = days[0];
-      if (!d) return;
-      const power = d.height * d.height * d.period;
-      const pw = getPowerLabel(power);
-      const el = document.querySelector(`[data-energy="${k}"]`);
-      if (el) el.innerHTML = `<span class="${pw.color}">⚡ ${pw.label} · ${power.toFixed(0)}</span>`;
-    } catch (e) { /* sin red: el botón queda sin badge */ }
+      return { k, d: days[Math.min(idx, days.length - 1)] || null };
+    } catch (e) { return { k, d: null }; }
+  }));
+
+  let bestK = null, bestS = -Infinity;
+  results.forEach(r => {
+    if (!r.d || r.d.noData) {
+      const el0 = document.querySelector(`[data-energy="${r.k}"]`);
+      if (el0 && r.d && r.d.noData) el0.innerHTML = '<span class="text-slate-300">s/d</span>';
+      return;
+    }
+    const sp = SPOTS[r.k];
+    const sc = conditionScore(r.d, sp);
+    if (sc > bestS) { bestS = sc; bestK = r.k; }
+    const face = surfFaceFt(r.d, sp);
+    const rb = ratingBucket(sc);
+    const el = document.querySelector(`[data-energy="${r.k}"]`);
+    if (el) el.innerHTML = `<span class="inline-block px-1 rounded ${rb.chip}">${face.label} · ${rb.k}</span>`;
   });
+
+  const allSolid = RATING_BUCKETS.flatMap(b => b.solid.split(" "));
+  document.querySelectorAll("#spotGrid .spot-btn").forEach(b => {
+    b.classList.remove("ring-2", "ring-amber-400", "ring-offset-1", "border-amber-500", "bg-amber-50", ...allSolid);
+    if (b.classList.contains("bg-sky-500")) b.classList.add("text-white"); // restaurar el seleccionado
+    const c = b.querySelector(".crown"); if (c) c.remove();
+  });
+  if (bestK) {
+    const btn = document.querySelector(`#spotGrid [data-spot="${bestK}"]`);
+    if (btn) {
+      const rbB = ratingBucket(bestS);
+      btn.classList.remove("bg-sky-500", "border-sky-500"); // el color de calidad manda
+      btn.classList.add("ring-2", "ring-amber-400", "ring-offset-1", ...rbB.solid.split(" "));
+      btn.insertAdjacentHTML("afterbegin", '<span class="crown">🏆 </span>');
+    }
+  }
+  const note = document.getElementById("bestSpotNote");
+  if (note) {
+    if (bestK) {
+      const rb = ratingBucket(bestS);
+      const when = idx === 0 ? "hoy" : "el día seleccionado";
+      note.innerHTML = `🏆 Mejor spot ${when}: <b>${SPOTS[bestK].label}</b> <span class="px-1 rounded ${rb.chip}">${rb.k}</span> — comparando tamaño, viento y período en las ${results.filter(r => r.d).length} playas.`;
+    } else note.textContent = "";
+  }
 }
 
 function buildSpotButtons() {
@@ -929,19 +1633,57 @@ document.querySelectorAll(".fin-btn").forEach(btn => {
 });
 
 // ============ EVENTS ============
+document.getElementById("weightMinus").addEventListener("click", () => nudgeWeightInput(-1));
+document.getElementById("weightPlus").addEventListener("click", () => nudgeWeightInput(1));
+document.getElementById("weightUpdate").addEventListener("click", applyWeightFromInput);
+document.getElementById("weightReset").addEventListener("click", () => setWeightLb(DEFAULT_WEIGHT_LB));
+document.getElementById("weightInput").addEventListener("input", refreshWeightPending);
+document.getElementById("weightInput").addEventListener("keydown", e => { if (e.key === "Enter") applyWeightFromInput(); });
+
 document.getElementById("height").addEventListener("input", e => { state.height = parseFloat(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("period").addEventListener("input", e => { state.period = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("wind").addEventListener("input", e => { state.wind = parseInt(e.target.value); selectedDayIdx = null; renderForecastStrip(); render(); });
 document.getElementById("windDir").addEventListener("change", e => { state.windDir = e.target.value; selectedDayIdx = null; renderForecastStrip(); render(); });
 
+// ============ AUTO-REFRESCO (4 veces al día + al volver a la pestaña) ============
+function refreshData() {
+  Object.keys(forecastCache).forEach(k => delete forecastCache[k]); // fuerza descarga nueva
+  loadForecast(false);   // repinta el spot actual con datos frescos
+  paintSpotEnergy();     // refresca la energía de cada playa
+}
+setInterval(refreshData, REFRESH_MS);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible" && lastFetchEpoch && (Date.now() - lastFetchEpoch) > 3 * 60 * 60 * 1000) {
+    refreshData(); // si vuelves y los datos tienen +3 h, refresca
+  }
+});
+
 // ============ INIT ============
 document.getElementById("todayStamp").textContent = new Date().toLocaleDateString("es-DO", { weekday: "long", day: "numeric", month: "long", year: "numeric", timeZone: "America/Santo_Domingo" });
 buildCountryButtons();
 buildSpotButtons();
-paintScopeButtons();
 paintFinButtons();
+document.getElementById("weightInput").value = USER_WEIGHT_LB;
+paintWeight();
+refreshWeightPending();
 render();
 loadForecast(true);
+paintCalStatus();
+runHsCalibration(false);
+(function initSc() {
+  const inp = document.getElementById("scKey");
+  if (getScKey() && inp) inp.placeholder = "clave guardada ✓";
+  paintScStatus();
+  document.getElementById("scSave").addEventListener("click", () => {
+    const v = (inp.value || "").trim();
+    if (v) { try { localStorage.setItem(SC_KEY_STORE, v); } catch (e) {} inp.value = ""; inp.placeholder = "clave guardada ✓"; }
+    if (!getScKey()) { scState = { ok: false, msg: "escribe la clave primero" }; paintScStatus(); return; }
+    scState = { ok: null, msg: "probando…" }; paintScStatus();
+    Object.keys(forecastCache).forEach(k => delete forecastCache[k]);
+    loadForecast(true);   // re-descarga; scFill corre y reporta estado
+    paintSpotEnergy();
+  });
+})();
 </script>
 
 </body>
